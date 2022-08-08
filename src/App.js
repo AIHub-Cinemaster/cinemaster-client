@@ -13,7 +13,6 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movie" element={<Movies />} />
         <Route path="/movie/:id" element={<MovieDetail />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
