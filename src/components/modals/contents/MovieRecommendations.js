@@ -1,35 +1,62 @@
 import Modal from 'react-modal';
 import { useEffect, useState } from 'react';
-import apiKey from "./../../../data/apiKey.json"
 import axios from "axios";
-import MovieCard from '../../MovieCard';
+import MovieCardInModal from './../../MovieCardInModal'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 
-// const getPosterURL = (posterpath)=>{
-//   return `https://www.themoviedb.org/t/p/w220_and_h330_face/${posterpath}`
-// }
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 6,
+    slidesToSlide : 2
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 
 
 const MovieRecommendations = (props)=>{
   const [rcmdMovies, setRcmdMovies] = useState([])
 
   useEffect(()=>{
-    axios.get(`https://api.themoviedb.org/3/movie/${props.id}/recommendations?api_key=${TMDB_API_KEY}&language=en-US&page=1`).then(res=>{
-      console.log(res.data.results);
+    axios.get(`https://api.themoviedb.org/3/movie/${props.id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(res=>{
       setRcmdMovies(res.data.results)
     }).catch(err=>{console.log(err)})
   },[])
 
 
-  const TMDB_API_KEY = apiKey.TMDB_API_KEY
-
   return (
     <div>
-      {
-        rcmdMovies.map((movie, index)=>{
-          return <MovieCard key={index} {...movie} />
-        })
-      }
+      <Carousel
+        responsive={responsive}
+        // autoPlay={movies.deviceType !== "mobile" ? true : false}
+        autoPlay={true}
+        autoPlaySpeed={1000}
+        infinite={true}
+      > 
+        {/* <MovieSlide movie={rcmdMovies} /> */}
+        {
+          rcmdMovies.map((movie, index)=>{
+            return <MovieCardInModal key={index} {...movie} />
+          })
+        }
+      </Carousel>
     </div>
   )
 }

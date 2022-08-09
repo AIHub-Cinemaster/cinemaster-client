@@ -1,9 +1,9 @@
 import Modal from 'react-modal';
 import { useEffect, useState } from 'react';
-import apiKey from "./../../data/apiKey.json"
 import axios from "axios";
 import MovieRecommendations from "./contents/MovieRecommendations"
 import "./../../assets/css/modal.css"
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 Modal.setAppElement('#root')
 
@@ -26,17 +26,15 @@ const customStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.75)'
+    backgroundColor: 'rgba(0, 0, 0, 0.6)'
   }
 };
 
 const MovieModal = ({ isOpen, setOpen, data }) => {
   const [trailerKey,setTrailerKey] = useState("")
 
-  const TMDB_API_KEY = apiKey.TMDB_API_KEY
-
   useEffect(()=>{
-    axios.get(`https://api.themoviedb.org/3/movie/${data.id}/videos?api_key=${TMDB_API_KEY}&language=en-US`).then(res=>{
+    axios.get(`https://api.themoviedb.org/3/movie/${data.id}/videos?api_key=${API_KEY}&language=en-US`).then(res=>{
       res.data.results.map((item)=>{
         if(item.type == "Trailer"){
           setTrailerKey(item.key)
@@ -59,12 +57,11 @@ const MovieModal = ({ isOpen, setOpen, data }) => {
           frameBorder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen 
         />
-        <div style={{margin:"0px 30px 30px 30px", position:"relative", bottom:"210px"}}>
-          <h1 style={{fontSize:"54px"}}><strong>{data.title}</strong></h1>
-          <p>{data.overview}</p>
-        </div>
-        <div style={{marginLeft:"30px"}}>
-          {/* <MovieRecommendations id={data.id} /> */}
+        <div style={{margin:"0px 30px 30px 30px"}}>
+          <h1 style={{fontSize:"54px", position:"relative", bottom:"120px"}}><strong>{data.title}</strong></h1>
+          <p style={{marginBottom:"50px"}}>{data.overview}</p>
+          <MovieRecommendations id={data.id} />
+          <h2 style={{marginTop:"30px"}}><strong>REVIEW</strong></h2>
         </div>
     </Modal>
   );
