@@ -31,11 +31,11 @@ const responsive = {
 };
 
 
-const MovieRecommendations = (props)=>{
+const GetSimilarMovies = (props)=>{
   const [rcmdMovies, setRcmdMovies] = useState([])
 
   useEffect(()=>{
-    axios.get(`https://api.themoviedb.org/3/movie/${props.id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(res=>{
+    axios.get(`https://api.themoviedb.org/3/movie/${props.id}/similar?api_key=${API_KEY}&language=en-US&page=1`).then(res=>{
       setRcmdMovies(res.data.results)
     }).catch(err=>{console.log(err)})
   },[])
@@ -60,4 +60,4 @@ const MovieRecommendations = (props)=>{
     </div>
   )
 }
-export default MovieRecommendations;
+export default GetSimilarMovies;
