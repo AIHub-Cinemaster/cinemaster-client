@@ -12,6 +12,8 @@ const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 6,
+    slidesToSlide : 2
+
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -23,17 +25,21 @@ const responsive = {
   },
 };
 
-const MovieSlide = ({ movie }) => {
-  console.log("movie", movie);
+const MovieSlide = ({ movies }) => {
   return (
+    
     <div>
       <Carousel
         responsive={responsive}
-        autoPlay={movie.deviceType !== "mobile" ? true : false}
-        autoPlaySpeed={1000}
+        // autoPlay={movies.deviceType !== "mobile" ? true : false}
+        autoPlay={true}
+        autoPlaySpeed={3000}
+        // infinite={true}
+        rewind={true}
+
       >
-        {movie.results.map((item) => (
-          <MovieCard item={item} />
+        {movies.results.map((item, index) => (
+          <MovieCard key={index} item={item} />
         ))}
       </Carousel>
     </div>

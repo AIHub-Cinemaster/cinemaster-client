@@ -25,7 +25,6 @@ function getMovies() {
           upComingApi,
           genreApi,
         ]);
-      console.log("genreList>???", genreList);
       dispatch({
         type: "GET_MOVIES_SUCCESS",
         payload: {

@@ -12,7 +12,6 @@ const MovieCard = ({ item }) => {
     setOpen(true);
   }
 
-  console.log("item??????????", item);
   return (
     <>
       <div
