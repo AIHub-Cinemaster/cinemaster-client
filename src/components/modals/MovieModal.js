@@ -1,7 +1,8 @@
 import Modal from 'react-modal';
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import MovieRecommendations from "./contents/MovieRecommendations"
+import GetRecommendations from "./contents/GetRecommendations"
+import GetSimilarMovies from './contents/GetSimilarMovies';
 import "./../../assets/css/modal.css"
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -26,7 +27,7 @@ const customStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)'
+    backgroundColor: 'rgba(051, 051, 051, 0.5)'
   }
 };
 
@@ -60,8 +61,14 @@ const MovieModal = ({ isOpen, setOpen, data }) => {
         <div style={{margin:"0px 30px 30px 30px"}}>
           <h1 style={{fontSize:"54px", position:"relative", bottom:"120px"}}><strong>{data.title}</strong></h1>
           <p style={{marginBottom:"50px"}}>{data.overview}</p>
-          <MovieRecommendations id={data.id} />
-          <h2 style={{marginTop:"30px"}}><strong>REVIEW</strong></h2>
+
+          <h1 style={{marginTop:"30px"}}><strong>Recommendations</strong></h1>
+          <GetRecommendations id={data.id} />
+
+          <h1 style={{marginTop:"30px"}}><strong>Similar Movies</strong></h1>
+          <GetSimilarMovies id={data.id} />
+
+          <h1 style={{marginTop:"30px"}}><strong>REVIEW</strong></h1>
         </div>
     </Modal>
   );
