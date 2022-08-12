@@ -51,7 +51,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
       setCreateIsOpen(false)
       // navigate("/review/list")
     }).catch(error=>{
-      console.log(error);
+      alert(error.response.data.fail);
     })
   }
 
@@ -62,11 +62,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
   // movieId, email, title, content
 
   return (
-    <div className="album">
-      <div className="container">
-
-        
-
+      <div className="review-create-card">
         <div className="mb-3">
           <label htmlFor="title" className="form-label">TITLE</label>
           <input type="text" className="form-control" onChange={onChangeCreateReview} name="title" id="title" placeholder="Title Here"/>
@@ -77,13 +73,16 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
           <textarea className="form-control" onChange={onChangeCreateReview} name="content" id="content" rows="5" placeholder="Content Here"></textarea>
         </div>
 
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">Author</label>
+          <input type="text" className="form-control" onChange={onChangeCreateReview} name="name" id="name" placeholder={cookies.userData.name} disabled />
+        </div>
+
         <div style={{textAlign:"right"}}>
           <button type="button" onClick={onClickCreateReviewButton} className="btn btn-danger" style={{marginRight:"7px"}}>SUBMIT</button>
           <button type="button" onClick={()=>{setCreateIsOpen(false)}} className="btn btn-danger">BACK</button>
-        </div>
-        
+        </div>      
       </div>
-    </div>
     
   )
 }

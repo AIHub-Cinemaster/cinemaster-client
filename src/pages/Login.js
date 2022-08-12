@@ -5,10 +5,18 @@ import port from "./../components/data/port.json";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import "./../assets/css/Login.css";
+import kakaoLogin from './../assets/images/kakaoLogin.png'
+import googleLogin from './../assets/images/googleLogin.png'
+import naverLogin from './../assets/images/naverLogin.png'
+
 
 const Login = () => {
   
-  
+  useEffect(()=>{
+    $('.message span').click(function(){
+      $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+    });
+  },[])
   // $( document ).ready( function(){
   //   $('.message a').click(function(){
   //     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
@@ -19,21 +27,14 @@ const Login = () => {
   //----------------------------- 공통 -----------------------------//
   const [isSignUp, setSignUp] = useState(false);
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
+
   //----------------------------- 로그인 -----------------------------//
   const [inErrorMessage, setInErrorMessage] = useState("");
   const [signInData, setSignInData] = useState({
     email: "",
     password: "",
   });
-
-  useEffect(()=>{
-    $('.message span').click(function(){
-      $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-    });
-  },[])
-
-
-  const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
 
   const onClickLoginButton = () => {
     if (signInData.email === "") {
@@ -52,10 +53,8 @@ const Login = () => {
       .then((res) => {
         console.log("res", res.data);
         setCookie("userData", res.data, { path: "/" });
-        navigate("/");
-
         alert("로그인이 완료되었습니다.");
-
+        navigate("/");
       })
       .catch((e) => {
         console.log(e);
@@ -75,8 +74,8 @@ const Login = () => {
   };
 
   const sendSignInData = async () => {
-    console.log(signInData);
-    return await axios.post(`${port.url}/user/login`, signInData);
+    // console.log(signInData);
+    return await axios.post(port.url+'/user/login', signInData);
   };
 
   //----------------------------- 회원가입 -----------------------------//
@@ -88,7 +87,7 @@ const Login = () => {
     name: "",
   });
   const onClickSignUpButton = () => {
-    console.log(signUpData);
+    // console.log(signUpData);
     if (signUpData.email === "") {
       alert("이메일을 입력해주세요.");
       $("#emailUp").focus();
@@ -135,7 +134,7 @@ const Login = () => {
   };
 
   const sendSignUpData = async () => {
-    console.log("signUpdaata");
+    // console.log("signUpdaata");
     return await axios.post(`${port.url}/user/signUp`, signUpData);
   };
 
@@ -146,6 +145,21 @@ const Login = () => {
       [event.target.name]: event.target.value,
     });
   };
+
+  //----------------------------- kakao oauth -----------------------------//
+  const REST_API_KEY = "eb0d9d031d9fc9784711b4d3f038fecb";
+  const REDIRECT_URI = "http://localhost:3001/oauth/kakao/callback";
+
+  // 카카오연동 1번
+  const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  //----------------------------- naver oauth -----------------------------//
+  const NAVER_CLIENT_ID = "g7l8PXOSnPcSuI_Ocrpx";
+  const NAVER_CLIENT_SECRET = "XRngCKMBae";
+  const NAVER_REDIRECT_URI = "http://localhost:3001/oauth/naver/callback";
+  const STATE = "RAMDOM_STATE";
+  // 네이버연동 1번
+  const NAVER_AUTH_URI = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=${STATE}`;
 
 
   return (
@@ -177,11 +191,25 @@ const Login = () => {
                       value={signInData.password}
                     />
                     <p className="warning-text">{inErrorMessage}</p>
-                    <button onClick={onClickLoginButton}>login</button>
+                    <button type="button" onClick={onClickLoginButton}>login</button>
                     {/* <button onClick={()=>{navigate('/')}}>test</button> */}
 
                     <p className="message">Not registered? <span><strong>Create an account</strong></span></p>
+
+                    <div className="social-container">
+                      <a href={NAVER_AUTH_URI} className="social">
+                        <img src={naverLogin}  width="50px" />
+                      </a>
+                      <a href="#" className="social">
+                        <img src={googleLogin} width="50px" />
+                      </a>
+                      <a href={KAKAO_AUTH_URI} className="social">
+                        <img src={kakaoLogin} width="50px" />
+                      </a>
+                    </div>
+
                   </form>
+                  
                 
                   {/* 회원가입 */}
                   <form className="register-form">
@@ -218,7 +246,7 @@ const Login = () => {
                       onChange={onChangeSignUpData}
                     />
                     <p className="warning-text">{upErrorMessage}</p>
-                    <button onClick={onClickSignUpButton}>Sign Up</button>
+                    <button  type="button" onClick={onClickSignUpButton}>Sign Up</button>
                     <p className="message">Already registered? <span><strong>Sign In</strong></span></p>
                   </form>
             </div>
