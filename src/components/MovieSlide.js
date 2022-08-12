@@ -27,21 +27,17 @@ const responsive = {
   },
 };
 
-const MovieSlide = ({ movies }) => {
+const MovieSlide = ({ movies, myCart }) => {
   return (
     
     <div>
       <Carousel
         responsive={responsive}
-        // autoPlay={movies.deviceType !== "mobile" ? true : false}
         autoPlay={false}
-        // autoPlaySpeed={3000}
-        // infinite={true}
-        // rewind={true}
-
+        infinite={true}
       >
         {movies.results.map((item, index) => (
-          <MovieCard key={index} item={item} />
+          <MovieCard key={index} item={item} isHeart={myCart.includes(String(item.id))} />
         ))}
       </Carousel>
     </div>

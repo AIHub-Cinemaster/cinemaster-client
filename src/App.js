@@ -1,13 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import "./assets/css/App.css";
 import Header from "./components/Header";
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import Login from "./pages/Login";
-import KakaoCallBack from "./pages/user/KakaoCallback";
-import NaverCallBack from "./pages/user/NaverCallback";
+import Home from "./components/Home";
+import NotFound from "./components/NotFound";
+import KakaoCallBack from "./components/pages/user/KakaoCallback";
+import NaverCallBack from "./components/pages/user/NaverCallback";
 import Footer from "./components/Footer";
-import MyPage from "./pages/MyPage";
+import MyPage from "./components/MyPage";
+import Login from "./components/Login";
+
 
 
 function App() {
