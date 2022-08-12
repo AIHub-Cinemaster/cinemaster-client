@@ -22,10 +22,11 @@ const MovieCard = ({ item }) => {
             "url(" +
             `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}` +
             ")",
+          margin:"15px 10px"
         }}
       >
         <div className="overlay">
-          <h1>{item.title}</h1>
+          <h1 style={{fontSize:"20px"}}>{item.title}</h1><br/>
           <div>
             {item.genre_ids.map(
               (id) => genreList.find((item) => item.id === id).name

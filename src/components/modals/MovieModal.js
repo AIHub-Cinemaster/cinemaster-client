@@ -4,14 +4,17 @@ import axios from "axios";
 import GetRecommendations from "./contents/GetRecommendations"
 import GetSimilarMovies from './contents/GetSimilarMovies';
 import "./../../assets/css/modal.css"
+import Reviews from './contents/Reviews';
+
+
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 Modal.setAppElement('#root')
 
 const customStyles = {
   content: {
-    width:"1280px",
-    backgroundColor:"black",
+    width:"850px",
+    backgroundColor:"#181818",
     color:"white",
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -52,14 +55,14 @@ const MovieModal = ({ isOpen, setOpen, data }) => {
   return (
     <Modal isOpen={isOpen} onRequestClose={() => setOpen(false)} style={customStyles}>
       <iframe 
-          style={{width:"1280px", height:"720px", border:"none"}} 
+          style={{width:"850px", height:"480px", border:"none"}} 
           src={youtubeUrl} 
           title="YouTube video player" 
           frameBorder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen 
         />
         <div style={{margin:"0px 30px 30px 30px"}}>
-          <h1 style={{fontSize:"54px", position:"relative", bottom:"120px"}}><strong>{data.title}</strong></h1>
+          <h1 style={{fontSize:"54px", margin:"20px 0px"}}><strong>{data.title}</strong></h1>
           <p style={{marginBottom:"50px"}}>{data.overview}</p>
 
           <h1 style={{marginTop:"30px"}}><strong>Recommendations</strong></h1>
@@ -69,6 +72,7 @@ const MovieModal = ({ isOpen, setOpen, data }) => {
           <GetSimilarMovies id={data.id} />
 
           <h1 style={{marginTop:"30px"}}><strong>REVIEW</strong></h1>
+          <Reviews id={data.id} />
         </div>
     </Modal>
   );

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux/es/exports";
 import Banner from "../components/Banner";
 import MovieSlide from "../components/MovieSlide";
 import ClipLoader from "react-spinners/ClipLoader";
+import Header from "../components/Header";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,13 +23,28 @@ const Home = () => {
 
   return (
     <div>
-      {popularMovies.results && <Banner movie={popularMovies.results[0]} />}
-      <h1>Popular Movie</h1>
-      <MovieSlide movies={popularMovies} />
-      <h1>Top rated Movie</h1>
-      <MovieSlide movies={topRatedMovies} />
-      <h1>upcoming Movie</h1>
-      <MovieSlide movies={upComingMovies} />
+      {popularMovies.results && (
+        <Banner
+          movie={
+            popularMovies.results[
+              Math.floor(Math.random() * popularMovies.results.length)
+            ]
+          }
+        />
+      )}
+      <div className="section-margin">
+        <h1>Ranking</h1>
+        <MovieSlide movies={popularMovies} />
+      </div>
+      <div className="section-margin">
+        <h1>Top Rated Movie</h1>
+        <MovieSlide movies={topRatedMovies} />
+      </div>
+      <div className="section-margin">
+        <h1>Upcoming Movie</h1>
+        <MovieSlide movies={upComingMovies} />
+      </div>
+
     </div>
   );
 };

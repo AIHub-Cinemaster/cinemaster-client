@@ -7,7 +7,7 @@ const Banner = ({ movie }) => {
       style={{
         backgroundImage:
           "url(" +
-          `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.poster_path}` +
+          `https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces${movie.poster_path}` +
           ")",
       }}
     >
