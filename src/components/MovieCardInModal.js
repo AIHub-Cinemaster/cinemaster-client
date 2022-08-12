@@ -7,7 +7,7 @@ import MovieModal from './modals/MovieModal';
 
 
 const getPosterURL = (posterpath)=>{
-  return `https://www.themoviedb.org/t/p/w220_and_h330_face/${posterpath}`
+  return `https://www.themoviedb.org/t/p/w154/${posterpath}`
 }
 
 const MovieCardInModal = (props) => {

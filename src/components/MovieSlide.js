@@ -8,11 +8,13 @@ const responsive = {
     // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 5,
+    slidesToSlide : 5
+
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 6,
-    slidesToSlide : 2
+    items: 5,
+    slidesToSlide : 5
 
   },
   tablet: {
@@ -32,10 +34,10 @@ const MovieSlide = ({ movies }) => {
       <Carousel
         responsive={responsive}
         // autoPlay={movies.deviceType !== "mobile" ? true : false}
-        autoPlay={true}
-        autoPlaySpeed={3000}
+        autoPlay={false}
+        // autoPlaySpeed={3000}
         // infinite={true}
-        rewind={true}
+        // rewind={true}
 
       >
         {movies.results.map((item, index) => (

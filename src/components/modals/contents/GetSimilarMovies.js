@@ -17,8 +17,8 @@ const responsive = {
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 6,
-    slidesToSlide : 2
+    items: 5,
+    slidesToSlide : 5
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -47,7 +47,7 @@ const GetSimilarMovies = (props)=>{
         responsive={responsive}
         // autoPlay={movies.deviceType !== "mobile" ? true : false}
         autoPlay={true}
-        autoPlaySpeed={1000}
+        autoPlaySpeed={5000}
         infinite={true}
       > 
         {/* <MovieSlide movie={rcmdMovies} /> */}
