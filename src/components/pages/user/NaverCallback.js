@@ -1,17 +1,17 @@
-import port from "./../../components/data/port.json";
+import port from './../../data/port.json'
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-const KakaoCallBack = () => {
+const NaverCallBack = () => {
   const navigate = useNavigate();
+
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
 
-  // 카카오연동 2번
+  // 네이버연동 2번
   // kakao에서 redirect 해준 code 가져오는 부분
-  const KAKAO_PARAMS = new URL(window.location.href).searchParams.get("code");
-
+  const NAVER_PARAMS = new URL(window.location.href).searchParams.get("code");
   useEffect(() => {
     sendCode()
       .then((res) => {
@@ -27,14 +27,14 @@ const KakaoCallBack = () => {
       });
   }, []);
 
-  // 카카오연동 3번
+  // 네이버연동 3번
   const sendCode = async () => {
-    return await axios.get(`${port.url}/auth/kakao`, {
+    return await axios.get(`${port.url}/auth/naver`, {
       params: {
-        code: KAKAO_PARAMS,
+        code: NAVER_PARAMS,
       },
     });
   };
 };
 
-export default KakaoCallBack;
+export default NaverCallBack;

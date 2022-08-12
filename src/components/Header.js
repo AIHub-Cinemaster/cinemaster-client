@@ -40,7 +40,9 @@ const Header = () => {
                 <li>
                   <button type="button" onClick={()=>{
                     removeCookie("userData", {path:"/"});
-                    // navigate("/")
+                    navigate("/")
+                    window.location.reload();
+                    
                   }} style={{backgroundColor:"#ea4c88", color:"white", borderRadius:"8px"}}>LOGOUT</button>
                 </li>
               </> 

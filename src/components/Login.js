@@ -61,7 +61,7 @@ const Login = () => {
         setInErrorMessage(e.response.data.fail);
       })
       .finally(() => {
-        console.log("final", cookies.userData);
+        // console.log("final", cookies.userData);
       });
   };
 

@@ -7,7 +7,6 @@
 }
 * { box-sizing: border-box; }
 
-
 body {
   background-color: #1c1c1c;
   color: white !important;
@@ -102,24 +101,22 @@ body {
   border-radius: 10px;
 
 }
-.card li {
+.card img {
+  margin: 10px;
 }
 
-.overlay {
+/* .card .overlay {
   opacity: 0;
-  background: rgba(43, 41, 41, 0.9);
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
+  
+}
+.card:hover .overlay {
+  opacity: 1;
+} */
 
+.heart{
+  cursor: pointer;
 }
 
-/* .card:hover .overlay {
-  padding: 25px 15px;
-  opacity: 1;
-  border-radius: 10px;
-
-} */
 .review-create-btn {
   border: dashed 3px #a7a7a7;
   background-color: #2c2c2c;

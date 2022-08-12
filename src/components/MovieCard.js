@@ -2,8 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import MovieModal from "./modals/MovieModal";
 import { useEffect, useState } from 'react';
+import {useCookies} from "react-cookie";
 
-const MovieCard = ({ item }) => {
+import heartGrey from './../assets/images/heartGrey.png'
+import heartRed from './../assets/images/heartRed.png'
+
+const MovieCard = ({ item, isHeart }) => {
+  const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
+
   const { genreList } = useSelector((state) => state.movie);
 
   const [isOpen, setOpen] = useState(false);
@@ -25,20 +31,20 @@ const MovieCard = ({ item }) => {
           margin:"15px 10px"
         }}
       >
-        <div className="overlay">
-          <h1 style={{fontSize:"20px"}}>{item.title}</h1><br/>
-          <div>
-            {item.genre_ids.map(
-              (id) => genreList.find((item) => item.id === id).name
-            )}
-          </div>
-          <div>
-            <span>{item.vote_average}</span>
-          </div>
-        </div>
+        {/* <div className="overlay">
+          {
+            isHeart ? (
+              <><img src={heartRed} width="25px" /></>
+            ) : (
+              <><img src={heartGrey} width="25px" /></>
+            )
+          }
+        </div> */}
+        
+      
       </div>
 
-      <MovieModal isOpen={isOpen} setOpen={setOpen} data={item}/>
+      <MovieModal isOpen={isOpen} setOpen={setOpen} data={item} isHeart={isHeart} />
     </>
     
 
