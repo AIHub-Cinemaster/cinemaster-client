@@ -18,7 +18,7 @@ const KakaoCallBack = () => {
         if (res.data.login) {
           // true면 로그인이 되어있는 상태
           setCookie("userData", res.data, { path: "/" });
-          navigate("/main");
+          navigate("/");
         }
       })
       .catch((e) => {
