@@ -48,7 +48,7 @@ const Login = () => {
 
     sendSignInData()
       .then((res) => {
-        console.log("res", res.data);
+        // console.log("res", res.data);
         setCookie("userData", res.data, { path: "/" });
         alert("로그인이 완료되었습니다.");
         navigate("/");
@@ -58,7 +58,7 @@ const Login = () => {
         setInErrorMessage(e.response.data.fail);
       })
       .finally(() => {
-        // console.log("final", cookies.userData);
+        console.log("final", cookies.userData);
       });
   };
 
@@ -83,7 +83,6 @@ const Login = () => {
     rePassword: "",
     name: "",
   });
-
   const onClickSignUpButton = () => {
     // console.log(signUpData);
     if (signUpData.email === "") {
@@ -121,26 +120,9 @@ const Login = () => {
       return;
     }
 
-    ///////////// 프로필 이미지
-    let formData = new FormData();
-    const profileImg = $("#profile_input")[0].files[0];
-    const config = {
-      header: { "Content-Type": "multipart/form-data" },
-    };
-
-    formData.append("file", profileImg);
-    formData.append("email", signUpData.email);
-    formData.append("password", signUpData.password);
-    formData.append("name", signUpData.name);
-
-    //// fromData 내부 데이터 로그 확인용
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
-    // onChangeSignUpProfileImg(profileImg);
-
-    sendSignUpData(formData, config)
+    sendSignUpData()
       .then((res) => {
+        console.log(res);
         alert(res.data.result);
         window.location.reload(); // window는 실행하는 최고 객체 즉 브라우저. 브라우저를 새로 고침
       })
@@ -149,9 +131,9 @@ const Login = () => {
       });
   };
 
-  const sendSignUpData = async (formData, config) => {
+  const sendSignUpData = async () => {
     // console.log("signUpdaata");
-    return await axios.post(`${port.url}/user/signUp`, formData, config);
+    return await axios.post(`${port.url}/user/signUp`, signUpData);
   };
 
   // 회원가입 data를 입력받는 함수
@@ -160,33 +142,6 @@ const Login = () => {
       ...signUpData,
       [event.target.name]: event.target.value,
     });
-  };
-
-  //----------------------------- 프로필 이미지 -----------------------------//
-  const [profileImage, setProfileImage] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
-  );
-  const fileInput = useRef(null);
-
-  const handleProfileImgChange = (e) => {
-    if (e.target.files[0]) {
-      setProfileImage(e.target.files[0]);
-      console.log(e.target.files[0]);
-    } else {
-      //업로드 취소할 시
-      // setProfileImage(
-      //   "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
-      // );
-      return;
-    }
-    //화면에 프로필 사진 표시
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setProfileImage(reader.result);
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]);
   };
 
   //----------------------------- kakao oauth -----------------------------//
@@ -257,24 +212,6 @@ const Login = () => {
 
             {/* 회원가입 */}
             <form className="register-form">
-              <img
-                alt="User Picture"
-                src={profileImage}
-                id="profile-image"
-                onClick={() => {
-                  fileInput.current.click();
-                }}
-                height="240"
-              />
-              <input
-                type="file"
-                style={{ display: "none" }}
-                accept="image/jpg,image/png,image/jpeg"
-                name="profile_input"
-                id="profile_input"
-                onChange={handleProfileImgChange}
-                ref={fileInput}
-              />
               <input
                 id="emailUp"
                 name="email"
