@@ -18,7 +18,7 @@ Modal.setAppElement("#root");
 const customStyles = {
   content: {
     width: "850px",
-    backgroundColor: "#181818",
+    backgroundColor: "rgba(24, 24, 24, 0.99)",
     color: "white",
     marginLeft: "auto",
     marginRight: "auto",
@@ -26,7 +26,7 @@ const customStyles = {
     border: "none",
     borderRadius: "20px",
     outline: "none",
-    padding: "0px",
+    padding: "0px"
   },
   overlay: {
     position: "fixed",
@@ -38,7 +38,10 @@ const customStyles = {
   },
 };
 
+
+
 const MovieModal = ({ isOpen, setOpen, data, isHeart }) => {
+  
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [trailerKey, setTrailerKey] = useState("");
   const [inCart, setInCart] = useState(isHeart);
@@ -111,7 +114,7 @@ const MovieModal = ({ isOpen, setOpen, data, isHeart }) => {
       style={customStyles}
     >
       <iframe
-        style={{ width: "850px", height: "480px", border: "none" }}
+        style={{ width: "850px", height: "480px", border: "none"}}
         src={youtubeUrl}
         title="YouTube video player"
         frameBorder="0"
