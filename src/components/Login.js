@@ -129,9 +129,9 @@ const Login = () => {
     };
 
     formData.append("file", profileImg);
+    formData.append("name", signUpData.name);
     formData.append("email", signUpData.email);
     formData.append("password", signUpData.password);
-    formData.append("name", signUpData.name);
 
     //// fromData 내부 데이터 로그 확인용
     // for (var pair of formData.entries()) {
@@ -168,7 +168,7 @@ const Login = () => {
   );
   const fileInput = useRef(null);
 
-  const handleProfileImgChange = (e) => {
+  const onChangeProfileImg = (e) => {
     if (e.target.files[0]) {
       setProfileImage(e.target.files[0]);
       console.log(e.target.files[0]);
@@ -272,7 +272,7 @@ const Login = () => {
                 accept="image/jpg,image/png,image/jpeg"
                 name="profile_input"
                 id="profile_input"
-                onChange={handleProfileImgChange}
+                onChange={onChangeProfileImg}
                 ref={fileInput}
               />
               <input
