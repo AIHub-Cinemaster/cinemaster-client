@@ -13,7 +13,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
 
 
   
-
+  
   const [createReview, setCreateReview] = useState({
     movieId: movieId,
     title:"",
@@ -21,9 +21,9 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
     shortId:cookies.userData.shortId
   });
 
-  useEffect(()=>{
-    console.log(createReview);
-  }, [createReview]);
+  // useEffect(()=>{
+  //   console.log(createReview);
+  // }, [createReview]);
 
   const onChangeCreateReview = (event)=>{
     setCreateReview({
@@ -45,27 +45,62 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
     }
 
     sendCreateReview().then(res=>{
+      // 리뷰작성 성공해야 별점 등록
+      sendStar()
+        .then(res=>{console.log(res)})
+        .catch(err=>{console.log(err)})
       console.log(res);
       alert(res.data.result)
       getReviewData()
       setCreateIsOpen(false)
-      // navigate("/review/list")
     }).catch(error=>{
       alert(error.response.data.fail);
     })
+
+    
   }
 
   const sendCreateReview = async()=>{
     return await axios.post(port.url + "/review/add", createReview)
-
   }
+
+//-----------------------별점---------------
+  const [star, setStar] = useState("")
+  const onChangeStar = (event)=>{
+    $(`.star span`).css({ width: `${event.target.value * 10}%` });
+    setStar(event.target.value/2)
+  }
+
+  const sendStar = async()=>{
+    return await axios.post(port.url + '/star/add', {
+      shortId:cookies.userData.shortId,
+      movieId:movieId,
+      star:star
+    })
+  }
+
+  
+  
   // movieId, email, title, content
+  // const drawStar = (target) => {
+  //   $(`.star span`).css({ width: `${target.value * 10}%` });
+    
+  // }
 
   return (
       <div className="review-create-card">
         <div className="mb-3">
           <label htmlFor="title" className="form-label">TITLE</label>
           <input type="text" className="form-control" onChange={onChangeCreateReview} name="title" id="title" placeholder="Title Here"/>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="star" className="form-label">STAR</label><br/>
+          <span className="star">
+            ★★★★★
+            <span>★★★★★</span>
+            <input type="range" step="1" min="0" max="10" onChange={onChangeStar} />
+          </span>
         </div>
 
         <div className="mb-3">

@@ -25,9 +25,7 @@ const MovieCard = ({ item, isHeart }) => {
         onClick={handleClick}
         style={{
           backgroundImage:
-            "url(" +
-            `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}` +
-            ")",
+            `url(https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path})`,
           margin:"15px 10px"
         }}
       >

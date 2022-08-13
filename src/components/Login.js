@@ -52,6 +52,7 @@ const Login = () => {
         setCookie("userData", res.data, { path: "/" });
         alert("로그인이 완료되었습니다.");
         navigate("/");
+        window.location.reload();//헤더-프로필 이미지 불러오려면 새로고침 필요함
       })
       .catch((e) => {
         console.log(e);
@@ -142,7 +143,7 @@ const Login = () => {
     sendSignUpData(formData, config)
       .then((res) => {
         alert(res.data.result);
-        window.location.reload(); // window는 실행하는 최고 객체 즉 브라우저. 브라우저를 새로 고침
+        window.location.reload(); 
       })
       .catch((e) => {
         setUpErrorMessage(e.response.data.error);
