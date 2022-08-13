@@ -68,3 +68,13 @@
   margin-top: 20px;
 }
 
+#profile-image {
+  border-radius: 100% !important;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 50px;
+  /* position: absolute; */
+  /* top: 72px; */
+}
