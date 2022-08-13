@@ -17,7 +17,7 @@ const Reviews = (props)=>{
 
   const getReviewData = ()=>{
     try{
-      axios.get(port.url + `/review/${[props.id]}`).then(res=>{
+      axios.get(port.url + `/reviewlist/${[props.id]}`).then(res=>{
         // console.log("get review", res.data)
         setReviewData(res.data);
       })

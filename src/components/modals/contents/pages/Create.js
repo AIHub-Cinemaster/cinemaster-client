@@ -18,7 +18,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
     movieId: movieId,
     title:"",
     content:"",
-    email:cookies.userData.email
+    shortId:cookies.userData.shortId
   });
 
   useEffect(()=>{
@@ -75,7 +75,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
 
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Author</label>
-          <input type="text" className="form-control" onChange={onChangeCreateReview} name="name" id="name" placeholder={cookies.userData.name} disabled />
+          <input type="text" className="form-control" name="name" id="name" placeholder={cookies.userData.name} disabled />
         </div>
 
         <div style={{textAlign:"right"}}>

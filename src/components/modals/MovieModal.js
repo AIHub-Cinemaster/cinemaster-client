@@ -99,7 +99,7 @@ const MovieModal = ({ isOpen, setOpen, data, isHeart }) => {
   };
   const pullCart = async () => {
     return await axios.post(port.url + "/cart/delete", {
-      email: cookies.userData.email,
+      shortId: cookies.userData.shortId,
       movieId: data.id,
     });
   };
