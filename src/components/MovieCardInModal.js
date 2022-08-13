@@ -20,6 +20,7 @@ const MovieCardInModal = (props) => {
 
   return(
     <>
+      {/* <h1>{props.isHeart}</h1> */}
       <div style={{display:"inline-block"}}>
         <img
           onClick={handleClick}
@@ -28,7 +29,7 @@ const MovieCardInModal = (props) => {
       </div>  
       
 
-      <MovieModal isOpen={isOpen} setOpen={setOpen} data={props}/>
+      <MovieModal isOpen={isOpen} setOpen={setOpen} data={props} isHeart={props.isHeart} />
     </>
   )
 }

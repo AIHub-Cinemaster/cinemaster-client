@@ -31,7 +31,7 @@ const Home = () => {
   }, []);
 
   const getCartList = async () => {
-    return await axios.get(`${port.url}/cart/list/${cookies.userData.email}`)
+    return await axios.get(`${port.url}/cart/list/${cookies.userData.shortId}`)
   }
 
   // loading이 true면 loading spinners, false면 data
