@@ -75,6 +75,7 @@
   height: 200px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   margin-bottom: 50px;
+  object-fit: cover;
   /* position: absolute; */
   /* top: 72px; */
 }

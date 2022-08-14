@@ -7,6 +7,7 @@ import port from './data/port.json'
 import Banner from "../components/Banner";
 import MovieSlide from "../components/MovieSlide";
 import ClipLoader from "react-spinners/ClipLoader";
+import './../assets/css/App.css'
 
 const Home = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
@@ -37,7 +38,11 @@ const Home = () => {
   // loading이 true면 loading spinners, false면 data
   // true: data 도착전, false: data 도착후 or err
   if (loading) {
-    return <ClipLoader color="#ffff" loading={loading} size={150} />;
+    return (
+      <div className="loading-box">
+        <ClipLoader color="#ffff" loading={loading} size={150} />
+      </div>
+    )
   }
 
   return (
@@ -51,16 +56,17 @@ const Home = () => {
           }
         />
       )}
+
       <div className="section-margin">
-        <h1>Ranking</h1>
+        <h1 className="white-big-font">Ranking</h1>
         <MovieSlide movies={popularMovies} myCart={myCart} />
       </div>
       <div className="section-margin">
-        <h1>Top Rated Movie</h1>
+        <h1 className="white-big-font">Top Rated Movie</h1>
         <MovieSlide movies={topRatedMovies} myCart={myCart} />
       </div>
       <div className="section-margin">
-        <h1>Upcoming Movie</h1>
+        <h1 className="white-big-font">Upcoming Movie</h1>
         <MovieSlide movies={upComingMovies} myCart={myCart} />
       </div>
 

@@ -28,82 +28,108 @@ const Header = () => {
     return await axios.get(`${port.url}/user/${cookies.userData.shortId}`);
   };
   return (
-    <div className="nav-container">
-      <div className="nav-wrap ">
-        <div className="nav-left-wrap container">
-          <Link
-            style={{
-              display: "flex",
-              alignItems: "center",
-              textDecoration: "none",
-              color: "white",
-            }}
-            to="/"
-          >
-            <h1 className="nav-logo">CINEMASTER</h1>
-          </Link>
+    <header>
+      <div className="nav-container">
+        <div className="nav-wrap ">
+          <div className="nav-left-wrap container">
+            <Link
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+              }}
+              to="/"
+            >
+              <h1 className="nav-logo color-big-font pointer">
+                <strong>
+                  CINEMASTER
+                </strong>
+              </h1>
+            </Link>
 
-          {cookies.userData ? (
-            <>
-              <ul>
-                <li>
-                  <Link className="nav-item" to="/">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  {myInfo.type === "local" ? (
-                    <Link
-                      className="nav-item"
-                      to="/mypagelogin"
-                      state={{
-                        email: myInfo.email,
-                        profileImg: myInfo.profileImg,
-                      }}
-                    >
-                      Mypage
+            {cookies.userData ? (
+              <>
+                <ul>
+                  <li>
+                    <Link style={{
+                          display: "flex",
+                          alignItems: "center",
+                          textDecoration: "none"
+                        }} to="/">
+                      <h1 className="white-middle-font">
+                        Home
+                      </h1>
                     </Link>
-                  ) : (
-                    <Link className="nav-item" to="/mypage">
-                      Mypage
+                  </li>
+                  <li>
+                    {myInfo.type === "local" ? (
+                      <Link
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          textDecoration: "none"
+                        }}
+                        to="/mypagelogin"
+                        state={{
+                          email: myInfo.email,
+                          profileImg: myInfo.profileImg,
+                        }}
+                      >
+                        <h1 className="white-middle-font">
+                          Mypage
+                        </h1>
+                      </Link>
+                    ) : (
+                      <Link style={{
+                        display: "flex",
+                        alignItems: "center",
+                        textDecoration: "none"
+                      }} className="white-middle-font" to="/mypage">
+                        <h1 className="white-middle-font">
+                          Mypage
+                        </h1>
+                      </Link>
+                    )}
+                  </li>
+                </ul>
+                
+                <div className="nav-right-wrap">
+                  <img src={myInfo.profileImg} id="profile-image-small" />
+                  <strong>{cookies.userData.name}</strong>님 로그인 중
+                  <button
+                    type="button"
+                    className="button color-button-small"
+                    onClick={() => {
+                      removeCookie("userData", { path: "/" });
+                      navigate("/");
+                      window.location.reload();
+                    }}
+                  >
+                    LOGOUT
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <ul>
+                  <li>
+                    <Link className="white-middle-font" to="/">
+                      Home
                     </Link>
-                  )}
-                </li>
-              </ul>
-              <div className="nav-right-wrap">
-                <img src={myInfo.profileImg} id="profile-image-small" />
-                <strong>{cookies.userData.name}</strong>님 로그인 중
-                <button
-                  type="button"
-                  onClick={() => {
-                    removeCookie("userData", { path: "/" });
-                    navigate("/");
-                    window.location.reload();
-                  }}
-                >
-                  LOGOUT
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <ul>
-                <li>
-                  <Link className="nav-item" to="/">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link className="nav-item" to="/login">
-                    Login
-                  </Link>
-                </li>
-              </ul>
-            </>
-          )}
+                  </li>
+                  <li>
+                    <Link className="white-middle-font" to="/login">
+                      Login
+                    </Link>
+                  </li>
+                </ul>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </header>
+    
   );
 };
 

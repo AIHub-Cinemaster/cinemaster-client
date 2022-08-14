@@ -54,6 +54,9 @@ const MyPageLogin = () => {
         <button type="button" onClick={onClickEnter}>
           Enter
         </button>
+        <p className="message">
+          본인확인이 필요합니다.
+        </p>
       </div>
     </div>
   );
