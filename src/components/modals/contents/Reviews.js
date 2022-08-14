@@ -22,18 +22,18 @@ const Reviews = (props)=>{
     // return await axios.get(port.url + `/reviewlist/${props.id}`)
     try{
       axios.get(port.url + `/reviewlist/${props.id}`).then(res=>{
-        // console.log("get review", res.data)
+        console.log("get review", res.data)
         setReviewData(res.data);
       })
     } catch(error) {
-      console.log("in Review.js", error)
+      console.log(error)
     }
   }
 
-  // const colorizeStar = (event)=>{
-  //   $(`.star span`).css({ width: `${event.target.value * 10}%` });
-  //   console.log(event.target.value/2)
-  // }
+  const colorizeStar = (value)=>{
+    $(`.star span`).css({ width: `${value * 10 * 2}%` });
+    // console.log(event.target.value/2)
+  }
   const onClickDeleteBtn = ()=>{
     if(window.confirm("삭제 하시겠습니까?")){
       deleteReview().then(res=>{
@@ -77,16 +77,18 @@ const Reviews = (props)=>{
                     <div className="review-content">
                       <span className="star">
                         ★★★★★
-                        <span>★★★★★</span>
-                        {/* <input type="range" defaultValue="4" step="1" min="0" max="10" onChange={colorizeStar} disabled/> */}
+                        <span style={{width: `${Number(item.star) * 10 * 2}%`}}>★★★★★</span>
+                        
                       </span>
-                    </div>      
+                      <span>{item.star}</span>
+                    </div>    
                     <div className="review-content">{item.content}</div>
                     <div className="review-content">{item.author}</div>
                     {
-                      cookies.userData.name == item.author ? (
+                      cookies.userData.shortId == item.shortId ? (
                         <>
                           <div>
+                            <p>{item.createdAt}</p>
                             <button type="button">수정</button>
                             <button type="button" onClick={()=>{onClickDeleteBtn()}}>삭제</button>
                           </div>
