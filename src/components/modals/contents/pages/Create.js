@@ -17,9 +17,9 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
     star:0
   });
 
-  useEffect(()=>{
-    console.log(createReview);
-  }, [createReview]);
+  // useEffect(()=>{
+  //   console.log(createReview);
+  // }, [createReview]);
 
   const onChangeCreateReview = (event)=>{
     // value 값에 따라 별 색칠
@@ -40,7 +40,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
       setCreateIsOpen(false)
       getReviewData()
     }).catch(error=>{
-      console.log("작성실패", error);
+      // console.log("작성실패", error);
       alert(error.response.data.fail);
     })
   }
@@ -76,8 +76,8 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
         </div>
 
         <div style={{textAlign:"right"}}>
-          <button type="button" onClick={onClickCreateReviewButton} className="btn btn-danger" style={{marginRight:"7px"}}>SUBMIT</button>
-          <button type="button" onClick={()=>{setCreateIsOpen(false)}} className="btn btn-danger">BACK</button>
+          <button type="button" onClick={onClickCreateReviewButton} className="button grey-button-small" style={{marginRight:"5px"}}>SUBMIT</button>
+          <button type="button" onClick={()=>{setCreateIsOpen(false)}} className="button grey-button-small">BACK</button>
         </div>      
       </div>
   )

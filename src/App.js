@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="root-wrap">
       <Header />
-      <div className="container" id="wrapper">
+      <div className="container" >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

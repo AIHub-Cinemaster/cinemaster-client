@@ -5,8 +5,6 @@ import Create from './pages/Create';
 import {useCookies} from "react-cookie";
 import $ from "jquery";
 
-
-
 const Reviews = (props)=>{
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
 
@@ -22,7 +20,7 @@ const Reviews = (props)=>{
     // return await axios.get(port.url + `/reviewlist/${props.id}`)
     try{
       axios.get(port.url + `/reviewlist/${props.id}`).then(res=>{
-        console.log("get review", res.data)
+        // console.log("get review", res.data)
         setReviewData(res.data);
       })
     } catch(error) {
@@ -30,10 +28,6 @@ const Reviews = (props)=>{
     }
   }
 
-  const colorizeStar = (value)=>{
-    $(`.star span`).css({ width: `${value * 10 * 2}%` });
-    // console.log(event.target.value/2)
-  }
   const onClickDeleteBtn = ()=>{
     if(window.confirm("삭제 하시겠습니까?")){
       deleteReview().then(res=>{
@@ -52,7 +46,6 @@ const Reviews = (props)=>{
     })
   }
 
-
   return (
     <>
       {
@@ -66,46 +59,56 @@ const Reviews = (props)=>{
               } else {
                 setCreateIsOpen(true)
               }}}>
-              <h2>Click Here!</h2>
+              <h2 className='white-xl-font'>Write Here!</h2>
             </div>
-
-            <div>          
               {
                 reviewData.map((item, index)=>(
                   <div key={index} className="review-card">
-                    <div className="review-content">{item.title}</div>
                     <div className="review-content">
-                      <span className="star">
-                        ★★★★★
-                        <span style={{width: `${Number(item.star) * 10 * 2}%`}}>★★★★★</span>
-                        
-                      </span>
-                      <span>{item.star}</span>
-                    </div>    
-                    <div className="review-content">{item.content}</div>
-                    <div className="review-content">{item.author}</div>
-                    {
-                      cookies.userData.shortId == item.shortId ? (
-                        <>
-                          <div>
-                            <p>{item.createdAt}</p>
-                            <button type="button">수정</button>
-                            <button type="button" onClick={()=>{onClickDeleteBtn()}}>삭제</button>
-                          </div>
-                        </>
-                      ) : (<></>)
-                    }
-                    
+                      <h1 className='white-big-font center'>{item.title}</h1>
+                      <div className='right'>
+                        <span className='grey-small-font m-3'>{item.star}</span>
+                        <span className="star">
+                          ★★★★★
+                          <span style={{width: `${Number(item.star) * 10 * 2}%`}}>
+                            ★★★★★
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div className="review-content">
+                      <p className='white-small-font mb-4'>
+                        {item.content}
+                      </p>
+                    </div>  
+                    <div className='review-content'>
+                      <div className='right'>
+                        <p className='grey-small-font foot'>
+                          {item.author}
+                          <span className='white-small-font time-box'>
+                            {item.createdAt}
+                          </span>
+                        </p>
+                        {
+                          cookies.userData.shortId == item.shortId ? (
+                            <>
+                                <button type="button" className="button grey-button-small">
+                                  UPDATE
+                                </button>
+                                <button type="button" className="button grey-button-small" onClick={()=>{onClickDeleteBtn()}}>
+                                  DELETE
+                                </button>
+                            </>
+                          ) : (<></>)
+                        }
+                      </div>
+                    </div>
                   </div>
                 ))
               }
-            </div>
           </>
-          
         )
       }
-
-      
     </>
     
   )

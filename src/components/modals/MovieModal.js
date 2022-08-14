@@ -5,7 +5,6 @@ import { useCookies } from "react-cookie";
 
 import GetRecommendations from "./contents/GetRecommendations";
 import GetSimilarMovies from "./contents/GetSimilarMovies";
-import "./../../assets/css/modal.css";
 import Reviews from "./contents/Reviews";
 import heartGrey from "./../../assets/images/heartGrey.png";
 import heartRed from "./../../assets/images/heartRed.png";
@@ -18,7 +17,8 @@ Modal.setAppElement("#root");
 const customStyles = {
   content: {
     width: "850px",
-    backgroundColor: "rgba(24, 24, 24, 0.99)",
+    backgroundColor: "rgba(24, 24, 24, 1)",
+    // background: "linear-gradient(to bottom, black 40%, #242424 90%)",
     color: "white",
     marginLeft: "auto",
     marginRight: "auto",
@@ -26,7 +26,8 @@ const customStyles = {
     border: "none",
     borderRadius: "20px",
     outline: "none",
-    padding: "0px"
+    padding: "0px",
+    boxShadow: "0 6px 500px rgb(0 0 0 / 60%)",
   },
   overlay: {
     position: "fixed",
@@ -35,6 +36,7 @@ const customStyles = {
     right: 0,
     bottom: 0,
     backgroundColor: "rgba(051, 051, 051, 0.5)",
+    backdropFilter: "blur(7px)"
   },
 };
 
@@ -113,43 +115,53 @@ const MovieModal = ({ isOpen, setOpen, data, isHeart }) => {
       onRequestClose={() => setOpen(false)}
       style={customStyles}
     >
-      <iframe
-        style={{ width: "850px", height: "480px", border: "none"}}
-        src={youtubeUrl}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-      <div style={{ margin: "0px 30px 30px 30px" }}>
-        <h1 style={{ fontSize: "54px", margin: "20px 0px" }}>
-          <strong>{data.title}</strong>
+      <div className="trailer-box">
+        <iframe
+          style={{ width: "850px", height: "480px", border: "none"}}
+          src={youtubeUrl}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+      
+      <div className="modal-box">
+        <h1 className="white-xl-font mb-1 mr-5 set-inline">
+          {data.title}
         </h1>
-        <p style={{ marginBottom: "50px" }}>{data.overview}</p>
-        {inCart ? (
-          <>
-            <img src={heartRed} onClick={onClickHeart} className="heart" />
-          </>
-        ) : (
-          <>
-            <img src={heartGrey} onClick={onClickHeart} className="heart" />
-          </>
-        )}
+        
+        <p className="grey-small-font mb-4">{data.vote_average}   /   {data.release_date}</p>
 
-        {/* {console.log(isHeart)} */}
-
-        <h1 style={{ marginTop: "30px" }}>
-          <strong>Recommendations</strong>
+        <span className="white-small-font">SUMMARY</span>
+        <p className="grey-small-font mt-1">
+          {data.overview}
+        </p>
+        <div className="right mt-3">
+          {inCart ? (
+            <>
+              <img src={heartRed} onClick={onClickHeart} className="heart" />
+            </>
+          ) : (
+            <>
+              <img src={heartGrey} onClick={onClickHeart} className="heart" />
+            </>
+          )}
+        </div>
+        
+        
+        <h1 className="white-big-font" style={{ marginTop: "30px" }}>
+          Recommendations
         </h1>
         <GetRecommendations id={data.id} />
 
-        <h1 style={{ marginTop: "30px" }}>
-          <strong>Similar Movies</strong>
+        <h1 className="white-big-font" style={{ marginTop: "30px" }}>
+          Similar Movies
         </h1>
         <GetSimilarMovies id={data.id} />
 
-        <h1 style={{ marginTop: "30px" }}>
-          <strong>REVIEW</strong>
+        <h1 className="white-big-font" style={{ marginTop: "30px" }}>
+          REVIEW
         </h1>
         <Reviews id={data.id} />
       </div>
