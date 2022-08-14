@@ -9,83 +9,45 @@ import { useNavigate } from "react-router-dom";
 const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
 
-  const navigate = useNavigate();
-
-
-  
-  
   const [createReview, setCreateReview] = useState({
     movieId: movieId,
     title:"",
     content:"",
-    shortId:cookies.userData.shortId
+    shortId:cookies.userData.shortId,
+    star:0
   });
 
-  // useEffect(()=>{
-  //   console.log(createReview);
-  // }, [createReview]);
+  useEffect(()=>{
+    console.log(createReview);
+  }, [createReview]);
 
   const onChangeCreateReview = (event)=>{
+    // value 값에 따라 별 색칠
+    if(event.target.name === "star"){
+      $(`.star span`).css({ width: `${event.target.value * 10 * 2}%` });
+    }
+    
     setCreateReview({
       ...createReview,
       [event.target.name]: event.target.value
     });
   }
 
+  
   const onClickCreateReviewButton = ()=>{
-    if(createReview.title === ""){
-      alert("title null");
-      $("#title").focus();
-      return;
-    }
-    if(createReview.content === ""){
-      alert("content null");
-      $("#content").focus();
-      return;
-    }
-
     sendCreateReview().then(res=>{
-      // 리뷰작성 성공해야 별점 등록
-      sendStar()
-        .then(res=>{console.log(res)})
-        .catch(err=>{console.log(err)})
-      console.log(res);
       alert(res.data.result)
-      getReviewData()
       setCreateIsOpen(false)
+      getReviewData()
     }).catch(error=>{
+      console.log("작성실패", error);
       alert(error.response.data.fail);
     })
-
-    
   }
 
   const sendCreateReview = async()=>{
     return await axios.post(port.url + "/review/add", createReview)
   }
-
-//-----------------------별점---------------
-  const [star, setStar] = useState("")
-  const onChangeStar = (event)=>{
-    $(`.star span`).css({ width: `${event.target.value * 10}%` });
-    setStar(event.target.value/2)
-  }
-
-  const sendStar = async()=>{
-    return await axios.post(port.url + '/star/add', {
-      shortId:cookies.userData.shortId,
-      movieId:movieId,
-      star:star
-    })
-  }
-
-  
-  
-  // movieId, email, title, content
-  // const drawStar = (target) => {
-  //   $(`.star span`).css({ width: `${target.value * 10}%` });
-    
-  // }
 
   return (
       <div className="review-create-card">
@@ -99,7 +61,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
           <span className="star">
             ★★★★★
             <span>★★★★★</span>
-            <input type="range" step="1" min="0" max="10" onChange={onChangeStar} />
+            <input name="star" type="range" step=".5" min="0" max="5" onChange={onChangeCreateReview} />
           </span>
         </div>
 
@@ -118,7 +80,6 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
           <button type="button" onClick={()=>{setCreateIsOpen(false)}} className="btn btn-danger">BACK</button>
         </div>      
       </div>
-    
   )
 }
 
