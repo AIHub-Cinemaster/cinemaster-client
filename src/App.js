@@ -7,9 +7,8 @@ import KakaoCallBack from "./components/pages/user/KakaoCallback";
 import NaverCallBack from "./components/pages/user/NaverCallback";
 import Footer from "./components/Footer";
 import MyPage from "./components/MyPage";
+import MyPageLogin from "./components/MyPageLogin";
 import Login from "./components/Login";
-
-
 
 function App() {
   return (
@@ -20,9 +19,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypagelogin" element={<MyPageLogin />} />
           <Route path="oauth">
-            <Route path="kakao/callback" element={<KakaoCallBack />}/>
-            <Route path="naver/callback" element={<NaverCallBack />}/>
+            <Route path="kakao/callback" element={<KakaoCallBack />} />
+            <Route path="naver/callback" element={<NaverCallBack />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>
