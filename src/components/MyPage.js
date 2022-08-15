@@ -10,6 +10,7 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 const MyPage = () => {
   const [wishList, setWishList] = useState([]);
+
   var wishListTemp = []; //임시저장
 
   useEffect(() => {
