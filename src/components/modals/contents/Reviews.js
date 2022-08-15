@@ -90,7 +90,7 @@ const Reviews = (props)=>{
                           </span>
                         </p>
                         {
-                          cookies.userData.shortId == item.shortId ? (
+                          cookies.userData && cookies.userData.shortId == item.shortId ? (
                             <>
                                 <button type="button" className="button grey-button-small">
                                   UPDATE
