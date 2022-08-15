@@ -200,10 +200,10 @@ body {
 }
 .modal-box {
   /* background: linear-gradient(to bottom, black 3%, #2c2c2c 100%); */
-  padding: 10px 30px 30px 30px;
+  padding: 0px 30px 30px 30px;
 }
 .trailer-box{
-  height: 540px;
+  height: 580px;
   background: linear-gradient(to bottom, black 85%, #181818 100%);
 
 }
