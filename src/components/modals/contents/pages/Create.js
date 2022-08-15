@@ -6,7 +6,7 @@ import port from './../../../data/port.json'
 import { useNavigate } from "react-router-dom";
 
 
-const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
+const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewDataByUser})=>{
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
 
   const [createReview, setCreateReview] = useState({
@@ -38,7 +38,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewData})=>{
     sendCreateReview().then(res=>{
       alert(res.data.result)
       setCreateIsOpen(false)
-      getReviewData()
+      getReviewDataByUser()
     }).catch(error=>{
       // console.log("작성실패", error);
       alert(error.response.data.fail);
