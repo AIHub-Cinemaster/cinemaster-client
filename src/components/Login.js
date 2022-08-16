@@ -231,7 +231,7 @@ const Login = () => {
                 value={signInData.password}
               />
               <p className="warning-text">{inErrorMessage}</p>
-              <button type="button" onClick={onClickLoginButton}>
+              <button type="button" onClick={()=>onClickLoginButton()}>
                 login
               </button>
               {/* <button onClick={()=>{navigate('/')}}>test</button> */}
@@ -309,7 +309,7 @@ const Login = () => {
                 onChange={onChangeSignUpData}
               />
               <p className="warning-text">{upErrorMessage}</p>
-              <button type="button" onClick={onClickSignUpButton}>
+              <button type="button" onClick={()=>onClickSignUpButton()}>
                 Sign Up
               </button>
               <p className="message">

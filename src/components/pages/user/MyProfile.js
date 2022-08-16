@@ -176,7 +176,7 @@ const MyProfile = () => {
           onChange={onChangeUserInfo}
         />
         <p className="warning-text">{errMsg}</p>
-        <button type="button" onClick={onClickModifyButton}>
+        <button type="button" onClick={()=>onClickModifyButton()}>
           Modify
         </button>
       </div>

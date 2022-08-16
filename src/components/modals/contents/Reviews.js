@@ -7,18 +7,23 @@ import $ from "jquery";
 import ReviewCard from './pages/ReviewCard';
 
 //무비아이디 부재
-const Reviews = (props)=>{
+const Reviews = ({movieId})=>{
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [reviewsByUser, setReviewsByUser] = useState([]);
   const [createIsOpen, setCreateIsOpen] = useState(false);
 
   useEffect(()=>{
-    getReviewDataByUser()
+    getReviewDataByMovie(movieId)
   },[])
 
-  const getReviewDataByUser = ()=>{
+  useEffect(()=>{
+    getReviewDataByMovie(movieId)
+  },[movieId])
+  
+
+  const getReviewDataByMovie = (mid)=>{
     try{
-      axios.get(port.url + `/reviewlist/${props.id}`).then(res=>{
+      axios.get(port.url + `/reviewlist/${mid}`).then(res=>{
         setReviewsByUser(res.data);
       })
     } catch(error) {
@@ -30,7 +35,7 @@ const Reviews = (props)=>{
     <>
       {
         createIsOpen ? (
-          <Create createIsOpen={createIsOpen} setCreateIsOpen={setCreateIsOpen} movieId={props.id} getReviewDataByUser={getReviewDataByUser}/>
+          <Create createIsOpen={createIsOpen} setCreateIsOpen={setCreateIsOpen} movieId={movieId} getReviewDataByMovie={getReviewDataByMovie}/>
         ) : (
           <>
             <div className="review-create-btn" onClick={()=>{
@@ -43,7 +48,7 @@ const Reviews = (props)=>{
             </div>
               {
                 reviewsByUser.map((review, index)=>(
-                    <ReviewCard key={index} review={review} getReviewData={getReviewDataByUser} />
+                    <ReviewCard key={index} review={review} getReviewData={getReviewDataByMovie} />
                 ))
               }
           </>

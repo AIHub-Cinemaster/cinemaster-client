@@ -76,7 +76,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewDataByUser})=>
         </div>
 
         <div style={{textAlign:"right"}}>
-          <button type="button" onClick={onClickCreateReviewButton} className="button grey-button-small" style={{marginRight:"5px"}}>SUBMIT</button>
+          <button type="button" onClick={()=>onClickCreateReviewButton()} className="button grey-button-small" style={{marginRight:"5px"}}>SUBMIT</button>
           <button type="button" onClick={()=>{setCreateIsOpen(false)}} className="button grey-button-small">BACK</button>
         </div>      
       </div>

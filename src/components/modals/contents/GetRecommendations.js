@@ -1,9 +1,9 @@
 import Modal from 'react-modal';
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import MovieCardInModal from './../../MovieCardInModal'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import MovieCardInModal from '../../MovieCardInModal';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -31,17 +31,17 @@ const responsive = {
 };
 
 
-const GetRecommendations = (props)=>{
+const GetRecommendations = ({movieId, setMovieId})=>{
   const [rcmdMovies, setRcmdMovies] = useState([])
 
   useEffect(()=>{
-    axios.get(`https://api.themoviedb.org/3/movie/${props.id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(res=>{
+    axios.get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(res=>{
       setRcmdMovies(res.data.results)
     }).catch(err=>{console.log(err)})
   },[])
 
 
-  return (
+  return ( 
     <div>
       <Carousel
         responsive={responsive}
@@ -50,10 +50,9 @@ const GetRecommendations = (props)=>{
         autoPlaySpeed={5000}
         infinite={true}
       > 
-        {/* <MovieSlide movie={rcmdMovies} /> */}
         {
           rcmdMovies.map((movie, index)=>{
-            return <MovieCardInModal key={index} {...movie} />
+            return <MovieCardInModal key={index} movie_id={movie.id} movie_poster={movie.poster_path} movieId={movieId} setMovieId={setMovieId} />
           })
         }
       </Carousel>

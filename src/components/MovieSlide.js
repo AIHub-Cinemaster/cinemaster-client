@@ -27,7 +27,7 @@ const responsive = {
   },
 };
 
-const MovieSlide = ({ movies, myCart }) => {
+const MovieSlide = ({ movies }) => {
   return (
     
     <div>
@@ -36,8 +36,8 @@ const MovieSlide = ({ movies, myCart }) => {
         autoPlay={false}
         infinite={true}
       >
-        {movies.results.map((item, index) => (
-          <MovieCard key={index} item={item} isHeart={myCart.includes(String(item.id))} />
+        {movies.map((movie, index) => (
+          <MovieCard key={index} movie_id={movie.id} movie_poster={movie.poster_path} />
         ))}
       </Carousel>
     </div>
