@@ -31,11 +31,11 @@ const responsive = {
 };
 
 
-const GetSimilarMovies = (props)=>{
+const GetSimilarMovies = ({movieId, setMovieId})=>{
   const [rcmdMovies, setRcmdMovies] = useState([])
 
   useEffect(()=>{
-    axios.get(`https://api.themoviedb.org/3/movie/${props.id}/similar?api_key=${API_KEY}&language=en-US&page=1`).then(res=>{
+    axios.get(`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${API_KEY}&language=en-US&page=1`).then(res=>{
       setRcmdMovies(res.data.results)
     }).catch(err=>{console.log(err)})
   },[])
@@ -50,10 +50,9 @@ const GetSimilarMovies = (props)=>{
         autoPlaySpeed={5000}
         infinite={true}
       > 
-        {/* <MovieSlide movie={rcmdMovies} /> */}
         {
           rcmdMovies.map((movie, index)=>{
-            return <MovieCardInModal key={index} {...movie} />
+            return <MovieCardInModal key={index} movie_id={movie.id} movie_poster={movie.poster_path} movieId={movieId} setMovieId={setMovieId} />
           })
         }
       </Carousel>

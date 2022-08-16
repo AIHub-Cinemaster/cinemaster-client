@@ -51,7 +51,7 @@ const MyPageLogin = () => {
           onChange={onChangePassword}
         />
         <p className="warning-text">{errMsg}</p>
-        <button type="button" onClick={onClickEnter}>
+        <button type="button" onClick={()=>onClickEnter()}>
           Enter
         </button>
         <p className="message">
