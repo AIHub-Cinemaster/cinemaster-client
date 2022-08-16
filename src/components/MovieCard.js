@@ -4,6 +4,7 @@ import MovieModal from "./modals/MovieModal";
 import { useEffect, useState } from 'react';
 import {useCookies} from "react-cookie";
 import axios from "axios";
+import $ from 'jquery'
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 
@@ -19,6 +20,7 @@ const MovieCard = ({ movie_id, movie_poster}) => {
         className="card"
         onClick={()=>{
           setOpen(true);
+          $('body').css("overflow", "hidden");
         }}
         style={{
           backgroundImage:

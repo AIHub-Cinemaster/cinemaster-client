@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import GetRecommendations from "./contents/GetRecommendations";
 import GetSimilarMovies from "./contents/GetSimilarMovies";
 import Reviews from "./contents/Reviews";
-
+import $ from 'jquery'
 import port from "./../data/port.json";
 import MovieTrailer from "./contents/MovieTrailer";
 import MovieIntroduction from "./contents/MovieIntroduction";
@@ -51,6 +51,7 @@ const MovieModal = ({ isOpen, setOpen, movie_id }) => {
       isOpen={isOpen}
       onRequestClose={() => {
         setOpen(false)
+        $('body').css("overflow", "auto");
         window.location.reload()
       }}
       style={customStyles}
