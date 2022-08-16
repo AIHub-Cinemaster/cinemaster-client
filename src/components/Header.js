@@ -41,9 +41,7 @@ const Header = () => {
               to="/"
             >
               <h1 className="nav-logo color-big-font pointer">
-                <strong>
-                  CINEMASTER
-                </strong>
+                <strong>CINEMASTER</strong>
               </h1>
             </Link>
 
@@ -51,23 +49,39 @@ const Header = () => {
               <>
                 <ul>
                   <li>
-                    <Link style={{
-                          display: "flex",
-                          alignItems: "center",
-                          textDecoration: "none"
-                        }} to="/">
-                      <h1 className="white-middle-font">
-                        Home
-                      </h1>
+                    <Link
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        textDecoration: "none",
+                      }}
+                      to="/"
+                    >
+                      <h1 className="white-middle-font">Home</h1>
                     </Link>
                   </li>
+
+                  {/* 찜하기 -----------------------------------------*/}
+                  <li>
+                    <Link
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        textDecoration: "none",
+                      }}
+                      to="/eval"
+                    >
+                      <h1 className="white-middle-font">Evaluation</h1>
+                    </Link>
+                  </li>
+                  {/* ------------------------------------------------ */}
                   <li>
                     {myInfo.type === "local" ? (
                       <Link
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          textDecoration: "none"
+                          textDecoration: "none",
                         }}
                         to="/mypagelogin"
                         state={{
@@ -75,24 +89,24 @@ const Header = () => {
                           profileImg: myInfo.profileImg,
                         }}
                       >
-                        <h1 className="white-middle-font">
-                          Mypage
-                        </h1>
+                        <h1 className="white-middle-font">Mypage</h1>
                       </Link>
                     ) : (
-                      <Link style={{
-                        display: "flex",
-                        alignItems: "center",
-                        textDecoration: "none"
-                      }} className="white-middle-font" to="/mypage">
-                        <h1 className="white-middle-font">
-                          Mypage
-                        </h1>
+                      <Link
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          textDecoration: "none",
+                        }}
+                        className="white-middle-font"
+                        to="/mypage"
+                      >
+                        <h1 className="white-middle-font">Mypage</h1>
                       </Link>
                     )}
                   </li>
                 </ul>
-                
+
                 <div className="nav-right-wrap">
                   <img src={myInfo.profileImg} id="profile-image-small" />
                   <strong>{cookies.userData.name}</strong>님 로그인 중
@@ -129,7 +143,6 @@ const Header = () => {
         </div>
       </div>
     </header>
-    
   );
 };
 

@@ -9,16 +9,18 @@ import Footer from "./components/Footer";
 import MyPage from "./components/MyPage";
 import MyPageLogin from "./components/MyPageLogin";
 import Login from "./components/Login";
+import Evaluation from "./components/Evaluation";
 
 function App() {
   return (
     <div className="root-wrap">
       <Header />
-      <div className="container" >
+      <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/eval" element={<Evaluation />} />
           <Route path="/mypagelogin" element={<MyPageLogin />} />
           <Route path="oauth">
             <Route path="kakao/callback" element={<KakaoCallBack />} />
