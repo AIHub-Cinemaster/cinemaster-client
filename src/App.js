@@ -6,20 +6,30 @@ import NotFound from "./components/NotFound";
 import KakaoCallBack from "./components/pages/user/KakaoCallback";
 import NaverCallBack from "./components/pages/user/NaverCallback";
 import Footer from "./components/Footer";
-import MyPage from "./components/MyPage";
-import MyPageLogin from "./components/MyPageLogin";
 import Login from "./components/Login";
+
+import MyPick from './components/pages/user/MyPick'
+import MyWrittenList from './components/pages/user/MyWrittenList'
+import MyProfile from "./components/pages/user/MyProfile";
+import Identification from "./components/Identification";
 
 function App() {
   return (
     <div className="root-wrap">
       <Header />
+
       <div className="container" >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/mypagelogin" element={<MyPageLogin />} />
+
+          {/* <Route path="/eval" element={<Login />} /> */}
+          <Route path="/mypick" element={<MyPick />} />
+          <Route path="/writtenlist" element={<MyWrittenList />} />
+          <Route path="/myprofile" element={<MyProfile />} />
+          <Route path="/identification" element={<Identification />} />
+
+
           <Route path="oauth">
             <Route path="kakao/callback" element={<KakaoCallBack />} />
             <Route path="naver/callback" element={<NaverCallBack />} />

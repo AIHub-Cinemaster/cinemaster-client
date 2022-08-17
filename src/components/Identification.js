@@ -1,10 +1,9 @@
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import port from "./../components/data/port.json";
 import { useNavigate } from "react-router-dom";
 
-const MyPageLogin = () => {
+const Identification = () => {
   const location = useLocation();
   const { email, profileImg } = location.state;
   const [password, setPassword] = useState("");
@@ -16,7 +15,7 @@ const MyPageLogin = () => {
     sendSignInData()
       .then((res) => {
         console.log("로그인에 성공했습니다.");
-        navigate("/mypage");
+        navigate("/myprofile");
       })
       .catch((e) => {
         setErrMsg(e.response.data.fail);
@@ -25,7 +24,7 @@ const MyPageLogin = () => {
 
   const sendSignInData = async () => {
     // console.log(signInData);
-    return await axios.post(port.url + "/user/login", { email, password });
+    return await axios.post(process.env.REACT_APP_SERVER_URL + "/user/login", { email, password });
   };
 
   // 로그인 data를 입력받는 함수
@@ -62,4 +61,4 @@ const MyPageLogin = () => {
   );
 };
 
-export default MyPageLogin;
+export default Identification;

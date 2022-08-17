@@ -1,15 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import port from './../../data/port.json'
 import Create from './pages/Create';
 import {useCookies} from "react-cookie";
-import $ from "jquery";
 import ReviewCard from './pages/ReviewCard';
+import { useNavigate } from 'react-router-dom';
 
-//무비아이디 부재
 const Reviews = ({movieId})=>{
+  const navigate = useNavigate()
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
-  const [reviewsByUser, setReviewsByUser] = useState([]);
+  const [reviewsByMovie, setReviewsByMovie] = useState([]);
   const [createIsOpen, setCreateIsOpen] = useState(false);
 
   useEffect(()=>{
@@ -20,11 +19,10 @@ const Reviews = ({movieId})=>{
     getReviewDataByMovie(movieId)
   },[movieId])
   
-
   const getReviewDataByMovie = (mid)=>{
     try{
-      axios.get(port.url + `/reviewlist/${mid}`).then(res=>{
-        setReviewsByUser(res.data);
+      axios.get(process.env.REACT_APP_SERVER_URL + `/reviewlist/${mid}`).then(res=>{
+        setReviewsByMovie(res.data);
       })
     } catch(error) {
       console.log(error)
@@ -41,13 +39,18 @@ const Reviews = ({movieId})=>{
             <div className="review-create-btn" onClick={()=>{
               if(!cookies.userData){
                 alert('로그인을 해주세요')
+                navigate('/login')
               } else {
                 setCreateIsOpen(true)
               }}}>
-              <h2 className='white-xl-font'>Write Here!</h2>
+              <h2 className='white-xl-font'>
+                <span className="material-symbols-outlined grey-icons">
+                  post_add
+                </span>
+              </h2>
             </div>
               {
-                reviewsByUser.map((review, index)=>(
+                reviewsByMovie.map((review, index)=>(
                     <ReviewCard key={index} review={review} getReviewData={getReviewDataByMovie} />
                 ))
               }

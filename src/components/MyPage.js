@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import port from "./data/port.json";
 import MyProfile from "./pages/user/MyProfile";
 import MyWishList from "./pages/user/MyWishList";
 import MyWrittenList from "./pages/user/MyWrittenList";
@@ -17,18 +16,20 @@ const MyPage = () => {
     getCartList()
       .then((res) => {
         //찜영화의 아이디만 담긴 배열
-        res.data.result.map((item) => {
-          //아이디 하나씩 넣어서
-          getMovieInfoById(item)
-            .then((res) => {
-              // 정보를 가져온다.
-              wishListTemp.push(res.data); //객체를 임시배열에 담는다
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        });
-        setWishList(wishListTemp); //반복문이 종료되면 위시리스트에 저장
+        if(!res.data.empty){
+          res.data.result.map((item) => {
+            //아이디 하나씩 넣어서
+            getMovieInfoById(item)
+              .then((res) => {
+                // 정보를 가져온다.
+                wishListTemp.push(res.data); //객체를 임시배열에 담는다
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
+          setWishList(wishListTemp); //반복문이 종료되면 위시리스트에 저장
+        }  
       })
       .catch((err) => {
         console.log(err);
@@ -37,7 +38,7 @@ const MyPage = () => {
 
   // cart DB에서 내 목록 가져오기 (only id)
   const getCartList = async () => {
-    return await axios.get(`${port.url}/cart/list/${cookies.userData.shortId}`);
+    return await axios.get(`${process.env.REACT_APP_SERVER_URL}/cart/list/${cookies.userData.shortId}`);
   };
 
   // 무비 아이디를 넣어서 해당영화의 정보 가져오기

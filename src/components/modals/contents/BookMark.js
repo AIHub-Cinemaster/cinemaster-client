@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import port from './../../data/port.json'
 import {useCookies} from "react-cookie";
 import $ from "jquery";
+import { useNavigate } from 'react-router-dom';
 
 const BookMark = ({movieId})=>{
+  const navigate = useNavigate();
 
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [myCart, setMyCart] = useState([]);
@@ -24,7 +25,7 @@ const BookMark = ({movieId})=>{
 
   
   const cartInit = () => {
-    axios.get(`${port.url}/cart/list/${cookies.userData.shortId}`).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/cart/list/${cookies.userData.shortId}`).then((res) => {
       setInCart(res.data.result.includes(String(movieId)))        
     }).catch((err) => {
       console.log(err);
@@ -32,7 +33,12 @@ const BookMark = ({movieId})=>{
   };
 
   const onClickBookMark = () => {
-    axios.post(port.url + "/cart/toggle", {
+    if(!cookies.userData){
+      alert("로그인이 필요합니다");
+      navigate('/login')
+      return;
+    }
+    axios.post(process.env.REACT_APP_SERVER_URL + "/cart/toggle", {
       shortId: cookies.userData.shortId,
       movieId: movieId
     }).then(res=>{

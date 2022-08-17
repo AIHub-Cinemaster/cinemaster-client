@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import port from './../../../data/port.json'
 import {useCookies} from "react-cookie";
 import $ from "jquery";
 
@@ -20,7 +19,7 @@ const ReviewCard = ({review, getReviewData}) => {
   }
 
   const deleteReview = async () => {
-    return await axios.post(port.url + '/review/delete', {
+    return await axios.post(process.env.REACT_APP_SERVER_URL + '/review/delete', {
       shortId: cookies.userData.shortId,
       movieId: review.movieId
     })
@@ -45,14 +44,18 @@ const ReviewCard = ({review, getReviewData}) => {
           {review.content}
         </p>
       </div>  
-      <div className='review-content'>
-        <div className='right'>
-          <p className='grey-small-font foot'>
+      <div className='review-content-last'>
+        <div className='right nav-left-wrap'>
+
+          <img id='profile-image-small' src={review.profileImg} />
+
+          <p className='grey-small-font set-inline'>
             {review.author}
-            <span className='white-small-font time-box'>
-              {review.createdAt}
-            </span>
           </p>
+
+          <span className='white-small-font time-box'>
+            {review.createdAt}
+          </span>
           {
             cookies.userData && cookies.userData.shortId == review.shortId ? (
               <>

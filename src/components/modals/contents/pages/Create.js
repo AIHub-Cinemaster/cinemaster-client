@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import {useCookies} from "react-cookie";
 import $ from "jquery";
 import axios from "axios";
-import port from './../../../data/port.json'
-import { useNavigate } from "react-router-dom";
 
 
-const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewDataByUser})=>{
+const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewDataByMovie})=>{
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
 
   const [createReview, setCreateReview] = useState({
@@ -37,8 +35,8 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewDataByUser})=>
   const onClickCreateReviewButton = ()=>{
     sendCreateReview().then(res=>{
       alert(res.data.result)
+      getReviewDataByMovie(movieId)
       setCreateIsOpen(false)
-      getReviewDataByUser()
     }).catch(error=>{
       // console.log("작성실패", error);
       alert(error.response.data.fail);
@@ -46,7 +44,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewDataByUser})=>
   }
 
   const sendCreateReview = async()=>{
-    return await axios.post(port.url + "/review/add", createReview)
+    return await axios.post(process.env.REACT_APP_SERVER_URL + "/review/add", createReview)
   }
 
   return (
