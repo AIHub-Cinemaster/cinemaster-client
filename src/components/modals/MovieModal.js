@@ -1,18 +1,12 @@
 import Modal from "react-modal";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useCookies } from "react-cookie";
+import { useState } from "react";
 import GetRecommendations from "./contents/GetRecommendations";
 import GetSimilarMovies from "./contents/GetSimilarMovies";
 import Reviews from "./contents/Reviews";
 import $ from 'jquery'
-import port from "./../data/port.json";
 import MovieTrailer from "./contents/MovieTrailer";
 import MovieIntroduction from "./contents/MovieIntroduction";
 import BookMark from "./contents/BookMark";
-
-
-const API_KEY = process.env.REACT_APP_API_KEY;
 
 Modal.setAppElement("#root");
 
