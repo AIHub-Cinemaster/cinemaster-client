@@ -40,6 +40,12 @@ const GetRecommendations = ({movieId, setMovieId})=>{
     }).catch(err=>{console.log(err)})
   },[])
 
+  useEffect(()=>{
+    axios.get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(res=>{
+      setRcmdMovies(res.data.results)
+    }).catch(err=>{console.log(err)})
+  },[movieId])
+
 
   return ( 
     <div>

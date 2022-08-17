@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import port from "./data/port.json";
-import { contains } from "jquery";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -25,13 +23,15 @@ const Header = () => {
   }, []);
 
   const getUserInfo = async () => {
-    return await axios.get(`${port.url}/user/${cookies.userData.shortId}`);
+    return await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`
+    );
   };
   return (
     <header>
       <div className="nav-container">
-        <div className="nav-wrap ">
-          <div className="nav-left-wrap container">
+        <div className="nav-wrap container">
+          <div className="nav-left-wrap ">
             <Link
               style={{
                 display: "flex",
@@ -44,24 +44,9 @@ const Header = () => {
                 <strong>CINEMASTER</strong>
               </h1>
             </Link>
-
             {cookies.userData ? (
               <>
                 <ul>
-                  <li>
-                    <Link
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        textDecoration: "none",
-                      }}
-                      to="/"
-                    >
-                      <h1 className="white-middle-font">Home</h1>
-                    </Link>
-                  </li>
-
-                  {/* 찜하기 -----------------------------------------*/}
                   <li>
                     <Link
                       style={{
@@ -74,66 +59,126 @@ const Header = () => {
                       <h1 className="white-middle-font">Evaluation</h1>
                     </Link>
                   </li>
-                  {/* ------------------------------------------------ */}
                   <li>
-                    {myInfo.type === "local" ? (
-                      <Link
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          textDecoration: "none",
-                        }}
-                        to="/mypagelogin"
-                        state={{
-                          email: myInfo.email,
-                          profileImg: myInfo.profileImg,
-                        }}
-                      >
-                        <h1 className="white-middle-font">Mypage</h1>
-                      </Link>
-                    ) : (
-                      <Link
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          textDecoration: "none",
-                        }}
-                        className="white-middle-font"
-                        to="/mypage"
-                      >
-                        <h1 className="white-middle-font">Mypage</h1>
-                      </Link>
-                    )}
+                    <Link
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        textDecoration: "none",
+                      }}
+                      to="/mypick"
+                    >
+                      <h1 className="white-middle-font">My Pick</h1>
+                    </Link>
                   </li>
                 </ul>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
 
-                <div className="nav-right-wrap">
-                  <img src={myInfo.profileImg} id="profile-image-small" />
-                  <strong>{cookies.userData.name}</strong>님 로그인 중
-                  <button
-                    type="button"
-                    className="button color-button-small"
-                    onClick={() => {
-                      removeCookie("userData", { path: "/" });
-                      navigate("/");
-                      window.location.reload();
-                    }}
-                  >
-                    LOGOUT
-                  </button>
-                </div>
+          <div className="nav-right-wrap">
+            {cookies.userData ? (
+              <>
+                <img src={myInfo.profileImg} id="profile-image-small" />
+                <ul className="navbar-nav">
+                  <li className="nav-item dropdown">
+                    <a
+                      className="nav-link dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <strong>{cookies.userData.name}</strong>님 로그인 중
+                    </a>
+                    <ul className="dropdown-menu dropdown-menu-dark">
+                      <li>
+                        {myInfo.type === "local" ? (
+                          <>
+                            <Link
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                textDecoration: "none",
+                              }}
+                              state={{
+                                email: myInfo.email,
+                                profileImg: myInfo.profileImg,
+                              }}
+                              className="dropdown-item"
+                              to="/identification"
+                            >
+                              My Profile
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <Link
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                textDecoration: "none",
+                              }}
+                              className="dropdown-item"
+                              to="/myprofile"
+                            >
+                              My Profile
+                            </Link>
+                          </>
+                        )}
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+
+                      <li>
+                        <Link
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            textDecoration: "none",
+                          }}
+                          className="dropdown-item"
+                          to="/writtenlist"
+                        >
+                          My Written List
+                        </Link>
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li>
+                        <p
+                          className="dropdown-item pointer"
+                          onClick={() => {
+                            removeCookie("userData", { path: "/" });
+                            navigate("/");
+                            window.location.reload();
+                          }}
+                        >
+                          LOGOUT
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
               </>
             ) : (
               <>
                 <ul>
                   <li>
-                    <Link className="white-middle-font" to="/">
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="white-middle-font" to="/login">
-                      Login
+                    <Link
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        textDecoration: "none",
+                      }}
+                      className="white-middle-font"
+                      to="/login"
+                    >
+                      <h1 className="white-middle-font">Login</h1>
                     </Link>
                   </li>
                 </ul>
