@@ -8,8 +8,8 @@ import NaverCallBack from "./components/pages/user/NaverCallback";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 
-import MyPick from './components/pages/user/MyPick'
-import MyWrittenList from './components/pages/user/MyWrittenList'
+import MyPick from "./components/pages/user/MyPick";
+import MyWrittenList from "./components/pages/user/MyWrittenList";
 import MyProfile from "./components/pages/user/MyProfile";
 import Identification from "./components/Identification";
 
@@ -18,7 +18,7 @@ function App() {
     <div className="root-wrap">
       <Header />
 
-      <div className="container" >
+      <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -28,7 +28,6 @@ function App() {
           <Route path="/writtenlist" element={<MyWrittenList />} />
           <Route path="/myprofile" element={<MyProfile />} />
           <Route path="/identification" element={<Identification />} />
-
 
           <Route path="oauth">
             <Route path="kakao/callback" element={<KakaoCallBack />} />

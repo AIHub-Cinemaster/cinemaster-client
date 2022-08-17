@@ -20,11 +20,12 @@ const Header = () => {
           console.log(err);
         });
     }
-
   }, []);
 
   const getUserInfo = async () => {
-    return await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`);
+    return await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`
+    );
   };
   return (
     <header>
@@ -59,16 +60,16 @@ const Header = () => {
                     </Link>
                   </li>
                   <li>
-                      <Link
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          textDecoration: "none",
-                        }}
-                        to="/mypick"
-                      >
-                        <h1 className="white-middle-font">My Pick</h1>
-                      </Link>
+                    <Link
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        textDecoration: "none",
+                      }}
+                      to="/mypick"
+                    >
+                      <h1 className="white-middle-font">My Pick</h1>
+                    </Link>
                   </li>
                 </ul>
               </>
@@ -81,67 +82,82 @@ const Header = () => {
             {cookies.userData ? (
               <>
                 <img src={myInfo.profileImg} id="profile-image-small" />
-                  <ul className="navbar-nav">
-                    <li className="nav-item dropdown">
-                      <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <strong>{cookies.userData.name}</strong>님 로그인 중
-                      </a>
-                      <ul className="dropdown-menu dropdown-menu-dark">
-                        <li>
-                          {myInfo.type === "local" ? (
-                            <>
-                              <Link
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  textDecoration: "none"
-                                }}
-                                state={{
-                                  email: myInfo.email,
-                                  profileImg: myInfo.profileImg,
-                                }}
-                                className="dropdown-item"
-                                to="/identification"
-                              >
-                                My Profile
-                              </Link>   
-                            </>
-                          ) : (
-                            <>
-                              <Link 
+                <ul className="navbar-nav">
+                  <li className="nav-item dropdown">
+                    <a
+                      className="nav-link dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <strong>{cookies.userData.name}</strong>님 로그인 중
+                    </a>
+                    <ul className="dropdown-menu dropdown-menu-dark">
+                      <li>
+                        {myInfo.type === "local" ? (
+                          <>
+                            <Link
                               style={{
                                 display: "flex",
                                 alignItems: "center",
                                 textDecoration: "none",
                               }}
-                              className="dropdown-item" to="/myprofile">
-                                My Profile
-                              </Link>
-                            </>
-                          )}
-                        </li>
-                        <li><hr className="dropdown-divider" /></li>
+                              state={{
+                                email: myInfo.email,
+                                profileImg: myInfo.profileImg,
+                              }}
+                              className="dropdown-item"
+                              to="/identification"
+                            >
+                              My Profile
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <Link
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                textDecoration: "none",
+                              }}
+                              className="dropdown-item"
+                              to="/myprofile"
+                            >
+                              My Profile
+                            </Link>
+                          </>
+                        )}
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
 
-                        <li>
-                          <Link 
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              textDecoration: "none",
-                            }}
-                            className="dropdown-item" to="/writtenlist">
-                            My Written List
-                          </Link>
-                        </li>
-                        <li><hr className="dropdown-divider" /></li>
-                        <li>
+                      <li>
+                        <Link
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            textDecoration: "none",
+                          }}
+                          className="dropdown-item"
+                          to="/writtenlist"
+                        >
+                          My Written List
+                        </Link>
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li>
                         <p
                           className="dropdown-item pointer"
                           onClick={() => {
                             removeCookie("userData", { path: "/" });
                             navigate("/");
                             window.location.reload();
-                          }}>
+                          }}
+                        >
                           LOGOUT
                         </p>
                       </li>
@@ -153,14 +169,15 @@ const Header = () => {
               <>
                 <ul>
                   <li>
-                    <Link 
+                    <Link
                       style={{
                         display: "flex",
                         alignItems: "center",
                         textDecoration: "none",
                       }}
-                      className="white-middle-font" to="/login">
-
+                      className="white-middle-font"
+                      to="/login"
+                    >
                       <h1 className="white-middle-font">Login</h1>
                     </Link>
                   </li>
