@@ -18,6 +18,7 @@ function getMovies() {
         `genre/movie/list?api_key=${API_KEY}&language=en-US`
       );
 
+      //
       let [popularMovies, topRatedMovies, upComingMovies, genreList] =
         await Promise.all([
           popularMovieApi,

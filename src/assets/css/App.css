@@ -360,3 +360,87 @@ body {
 .footer-container {
   background-color: rgba(0, 0, 0, 0.1);
 }
+.eval-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100vh;
+}
+.eval-card {
+  width: 220px;
+  height: 330px;
+  margin: 7px;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 10px;
+}
+.eval-card .eval-imgBox {
+  width: 220px;
+  height: 330px;
+  text-align: center;
+}
+.eval-imgBox img {
+  width: 220px;
+  height: 330px;
+}
+.eval-card .eval-intro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 330px;
+}
+.eval-intro h1 p span {
+  margin-top: 20px;
+}
+.hover1 .eval-intro {
+  padding: 6px;
+  background: rgb(27, 27, 27, 0.5);
+  transform: translateY(100%);
+  transition: 0.5s;
+}
+
+/* 수정중 */
+.hover1 .eval-intro {
+  transform: translateY(65%);
+}
+
+/* .eval-card {
+  height: 330px;
+  margin: 5px;
+  overflow: hidden;
+}
+.eval-card img {
+  width: 220px;
+  height: 330px;
+  border-radius: 3px;
+}
+.eval-intro {
+  height: 200px;
+  width: 220px;
+  padding: 6px;
+  bottom: 250px;
+  box-sizing: border-box;
+  position: absolute;
+  background: rgb(27, 27, 27, 0.5);
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.eval-intro span {
+  font-weight: bold;
+}
+.eval-card:hover {
+  cursor: pointer;
+}
+.eval-card:hover .eval-intro {
+  height: 100px;
+  width: 220px;
+  background: black;
+  opacity: 1;
+  visibility: visible;
+} */
