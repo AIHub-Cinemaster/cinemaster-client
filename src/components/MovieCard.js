@@ -34,7 +34,7 @@ const MovieCard = ({ movie_id, movie_poster, isRanking, rank}) => {
               onClick={()=>{
                 setOpen(true);
                 $('body').css("overflow", "hidden");
-                $('.react-multiple-carousel__arrow').css("opacity", "0");
+                $('.react-multiple-carousel__arrow').css("display", "none");
               }}
               style={{
                 backgroundImage:

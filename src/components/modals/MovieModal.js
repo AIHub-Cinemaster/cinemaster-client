@@ -45,7 +45,7 @@ const MovieModal = ({ isOpen, setOpen, movie_id }) => {
       isOpen={isOpen}
       onRequestClose={() => {
         $('body').css("overflow", "auto");
-        $('.react-multiple-carousel__arrow').css("opacity", "1");
+        $('.react-multiple-carousel__arrow').css("display", "inline-block");
         setOpen(false)
       }}
       style={customStyles}
