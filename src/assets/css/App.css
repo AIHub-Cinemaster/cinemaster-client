@@ -98,7 +98,9 @@ body {
   transition: 0.1s;
 }
 .nav-logo:hover{
-  color:#d44179
+  /* color:#d44179; */
+  text-shadow: 0px 0px 30px rgba(234, 76, 136, 0.8);
+
 }
 .pointer {
   cursor: pointer;
