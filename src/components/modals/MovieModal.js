@@ -7,6 +7,7 @@ import $ from 'jquery'
 import MovieTrailer from "./contents/MovieTrailer";
 import MovieIntroduction from "./contents/MovieIntroduction";
 import BookMark from "./contents/BookMark";
+import { useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
@@ -37,6 +38,7 @@ const customStyles = {
 };
 
 const MovieModal = ({ isOpen, setOpen, movie_id }) => {
+  const navigate = useNavigate('/');
 
   const [movieId, setMovieId] = useState(movie_id);
 
@@ -46,6 +48,7 @@ const MovieModal = ({ isOpen, setOpen, movie_id }) => {
       onRequestClose={() => {
         $('body').css("overflow", "auto");
         $('.react-multiple-carousel__arrow').css("display", "inline-block");
+        navigate('/')
         setOpen(false)
       }}
       style={customStyles}

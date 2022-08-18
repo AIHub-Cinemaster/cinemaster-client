@@ -90,7 +90,12 @@ const Home = () => {
         <div
           className="review-create-btn mb-5"
           onClick={() => {
-            navigate("./eval");
+            if(cookies.userData){
+              navigate("./eval");
+            } else {
+              navigate("/login")
+              // alert("로그인이 필요합니다.")
+            }
           }}
         >
           <h2 className="white-xl-font">
