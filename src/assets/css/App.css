@@ -148,6 +148,13 @@ body {
   /* text-shadow:0px 0px 10px #a7a7a7; */
   text-align: left;
 }
+.color-small-icons {
+  color: #ea4c88;
+  font-size: 50px;
+  cursor: pointer;
+  text-shadow: 0px 0px 30px rgba(234, 76, 136, 0.5);
+  text-align: left;
+}
 
 .color-big-font {
   text-decoration: none;
@@ -347,6 +354,7 @@ body {
   padding: 20px 15px 20px 15px;
   align-items: center;
   display: flex;
+  justify-content: space-between;
   /* flex-direction: row-reverse; */
   /* justify-content: flex-end; */
 }

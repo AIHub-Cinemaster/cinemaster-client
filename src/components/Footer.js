@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = ()=>{
   return (
-    <footer className="text-muted py-5 footer-container">
+    <footer className="text-muted py-5 footer-container mt-5">
       <div className="container" style={{marginBottom:"10px"}}>
         <p className="float-end mb-1">
           <a href="#" className="grey-small-font"><strong>Back to top</strong></a>
