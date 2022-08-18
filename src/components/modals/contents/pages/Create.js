@@ -34,7 +34,7 @@ const Create = ({createIsOpen, setCreateIsOpen, movieId, getReviewDataByMovie})=
   
   const onClickCreateReviewButton = ()=>{
     sendCreateReview().then(res=>{
-      alert(res.data.result)
+      // alert(res.data.result)
       getReviewDataByMovie(movieId)
       setCreateIsOpen(false)
     }).catch(error=>{

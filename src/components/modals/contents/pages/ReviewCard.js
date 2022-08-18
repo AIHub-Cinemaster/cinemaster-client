@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import {useCookies} from "react-cookie";
-import $ from "jquery";
+import Update from './Update';
 
-const ReviewCard = ({review, getReviewData}) => {
+const ReviewCard = ({review, getReviewData, accessType}) => {
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
+  const [updateIsOpen, setUpdateIsOpen] = useState(false);
+
 
 
   const onClickDeleteBtn = ()=>{
@@ -25,52 +27,69 @@ const ReviewCard = ({review, getReviewData}) => {
     })
   }
   return (
+    <>
+      {
+      updateIsOpen ? ( // 업데이트?
+        <>
+          <Update updateIsOpen={updateIsOpen} setUpdateIsOpen={setUpdateIsOpen} reviewId={review.reviewId} getReviewData={getReviewData} movieId={review.movieId} />
+        </>
+      ) : (
+        <>
+          <div className="review-card">
+            <div className="review-content">
+              <h1 className='white-big-font center'>{review.title}</h1>
+              <div className='right'>
+                <span className='grey-small-font m-3'>{review.star}</span>
+                <span className="star">
+                  ★★★★★
+                  <span style={{width: `${Number(review.star) * 10 * 2}%`}}>
+                    ★★★★★
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div className="review-content">
+              <p className='white-small-font mb-4'>
+                {review.content}
+              </p>
+            </div>  
+            <div className='review-content-last'>
+              <div className='right nav-left-wrap'>
+
+                <img id='profile-image-small' src={review.profileImg} />
+
+                <p className='grey-small-font set-inline'>
+                  {review.author}
+                </p>
+
+                <span className='white-small-font time-box'>
+                  {review.createdAt}
+                </span>
+                { // 로그인이 되어있고 && 내가 작성한 글 ?
+                  cookies.userData 
+                    && cookies.userData.shortId == review.shortId
+                    && accessType ? (
+                    <>
+                      <button type="button" className="button grey-button-small" onClick={()=>{setUpdateIsOpen(true)}}>
+                        UPDATE
+                      </button>
+                      <button type="button" className="button grey-button-small" onClick={()=>{onClickDeleteBtn()}}>
+                        DELETE
+                      </button>
+                    </>
+                  ) : (<></>)
+                }
+              </div>
+            </div>
+          </div>
+
+        </>
+      )
+    }
     
-    <div className="review-card">
-      <div className="review-content">
-        <h1 className='white-big-font center'>{review.title}</h1>
-        <div className='right'>
-          <span className='grey-small-font m-3'>{review.star}</span>
-          <span className="star">
-            ★★★★★
-            <span style={{width: `${Number(review.star) * 10 * 2}%`}}>
-              ★★★★★
-            </span>
-          </span>
-        </div>
-      </div>
-      <div className="review-content">
-        <p className='white-small-font mb-4'>
-          {review.content}
-        </p>
-      </div>  
-      <div className='review-content-last'>
-        <div className='right nav-left-wrap'>
-
-          <img id='profile-image-small' src={review.profileImg} />
-
-          <p className='grey-small-font set-inline'>
-            {review.author}
-          </p>
-
-          <span className='white-small-font time-box'>
-            {review.createdAt}
-          </span>
-          {
-            cookies.userData && cookies.userData.shortId == review.shortId ? (
-              <>
-                <button type="button" className="button grey-button-small">
-                  UPDATE
-                </button>
-                <button type="button" className="button grey-button-small" onClick={()=>{onClickDeleteBtn()}}>
-                  DELETE
-                </button>
-              </>
-            ) : (<></>)
-          }
-        </div>
-      </div>
-    </div>
+    
+    </>
+    
   )
 }
 
