@@ -415,6 +415,17 @@ body {
 .menu-item:hover{
   color: #ea4c88;
 }
+
+.eval-button-form {
+  position: relative;
+  z-index: 1;
+  /* max-width: 360px; */
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  margin-top : 150px
+}
+
 .eval-container {
   display: flex;
   justify-content: center;
@@ -459,53 +470,6 @@ body {
 }
 
 /* 수정중 */
-.hover1 .eval-intro {
+.hover1:hover .eval-intro {
   transform: translateY(65%);
-}
-
-.eval-button-form {
-  position: relative;
-  z-index: 1;
-  /* max-width: 360px; */
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  margin-top : 150px
-}
-
-.eval-card {
-  height: 330px;
-  margin: 5px;
-  overflow: hidden;
-}
-.eval-card img {
-  width: 220px;
-  height: 330px;
-  border-radius: 3px;
-}
-.eval-intro {
-  height: 200px;
-  width: 220px;
-  padding: 6px;
-  bottom: 250px;
-  box-sizing: border-box;
-  position: absolute;
-  background: rgb(27, 27, 27, 0.5);
-  visibility: hidden;
-  opacity: 0;
-  transition: 0.2s;
-}
-
-.eval-intro span {
-  font-weight: bold;
-}
-.eval-card:hover {
-  cursor: pointer;
-}
-.eval-card:hover .eval-intro {
-  height: 100px;
-  width: 220px;
-  background: black;
-  opacity: 1;
-  visibility: visible;
 }
