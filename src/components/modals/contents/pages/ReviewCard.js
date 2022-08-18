@@ -12,7 +12,9 @@ const ReviewCard = ({review, getReviewData, accessType}) => {
 
   useEffect(()=>{
     // console.log("11",review.likeUsers.includes(cookies.userData.shortId))
-    setDoYouLike(review.likeUsers.includes(cookies.userData.shortId))
+    if(cookies.userData){
+      setDoYouLike(review.likeUsers.includes(cookies.userData.shortId))
+    }
   },[])
 
   const onClickDeleteBtn = ()=>{
@@ -102,7 +104,7 @@ const ReviewCard = ({review, getReviewData, accessType}) => {
                           </>
                         )
                       }
-                      <span className='grey-small-font'>&nbsp;{review.likeCount}</span>
+                      <span className='grey-small-font'>&nbsp;{review.likeUsers.length}</span>
                     </>
                   ) : (<></>)
                 }
