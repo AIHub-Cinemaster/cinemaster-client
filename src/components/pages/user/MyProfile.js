@@ -2,8 +2,10 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import $ from "jquery";
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyProfile = () => {
+  const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [modifyUserData, setModifyUserData] = useState({
     name: "",
@@ -26,7 +28,7 @@ const MyProfile = () => {
           setProfileImage(res.data.profileImg);
         })
         .catch((err) => {
-          alert("유저 데이터 로드 오류", err);
+          console.log("유저 데이터 로드 오류", err);
         });
     }
   }, []);
@@ -62,19 +64,19 @@ const MyProfile = () => {
 
   const onClickModifyButton = () => {
     if (modifyUserData.password === "") {
-      alert("패스워드를 입력해주세요.");
+      // alert("패스워드를 입력해주세요.");
       $("#password").focus();
       return;
     }
 
     if (modifyUserData.rePassword === "") {
-      alert("확인 패스워드를 입력해주세요.");
+      // alert("확인 패스워드를 입력해주세요.");
       $("#rePassword").focus();
       return;
     }
 
     if (modifyUserData.name === "") {
-      alert("이름을 입력해주세요.");
+      // alert("이름을 입력해주세요.");
       $("#name").focus();
       return;
     }
@@ -105,7 +107,8 @@ const MyProfile = () => {
 
     sendModifyUserData(formData, config)
       .then((res) => {
-        alert(res.data.result);
+        // alert(res.data.result);
+        navigate('/')
         window.location.reload(); // window는 실행하는 최고 객체 즉 브라우저. 브라우저를 새로 고침
       })
       .catch((e) => {

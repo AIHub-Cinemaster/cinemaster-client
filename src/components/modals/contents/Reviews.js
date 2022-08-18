@@ -49,7 +49,7 @@ const Reviews = ({ movieId }) => {
             className="review-create-btn"
             onClick={() => {
               if (!cookies.userData) {
-                alert("로그인을 해주세요");
+                // alert("로그인을 해주세요");
                 navigate("/login");
               } else {
                 setCreateIsOpen(true);

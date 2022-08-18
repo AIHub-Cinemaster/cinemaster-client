@@ -34,22 +34,22 @@ const Login = () => {
 
   const onClickLoginButton = () => {
     if (signInData.email === "") {
-      alert("이메일을 입력해주세요.");
+      // alert("이메일을 입력해주세요.");
       $("#email").focus();
       return;
     }
 
     if (signInData.password === "") {
-      alert("패스워드를 입력해주세요.");
+      // alert("패스워드를 입력해주세요.");
       $("#password").focus();
       return;
     }
 
     sendSignInData()
       .then((res) => {
-        console.log("res", res.data);
+        // console.log("res", res.data);
         setCookie("userData", res.data, { path: "/" });
-        alert("로그인이 완료되었습니다.");
+        // alert("로그인이 완료되었습니다.");
         navigate("/");
         window.location.reload();//헤더-프로필 이미지 불러오려면 새로고침 필요함
       })
@@ -87,31 +87,31 @@ const Login = () => {
   const onClickSignUpButton = () => {
     // console.log(signUpData);
     if (signUpData.email === "") {
-      alert("이메일을 입력해주세요.");
+      // alert("이메일을 입력해주세요.");
       $("#emailUp").focus();
       return;
     }
 
     if (signUpData.password === "") {
-      alert("패스워드를 입력해주세요.");
+      // alert("패스워드를 입력해주세요.");
       $("#passwordUp").focus();
       return;
     }
 
     if (signUpData.rePassword === "") {
-      alert("확인 패스워드를 입력해주세요.");
+      // alert("확인 패스워드를 입력해주세요.");
       $("#rePasswordUp").focus();
       return;
     }
 
     if (signUpData.name === "") {
-      alert("이름을 입력해주세요.");
+      // alert("이름을 입력해주세요.");
       $("#nameUp").focus();
       return;
     }
 
     if (signUpData.password !== signUpData.rePassword) {
-      alert("비밀번호와 확인 비밀번호가 같지 않습니다.");
+      // alert("비밀번호와 확인 비밀번호가 같지 않습니다.");
       setSignUpData({
         ...signUpData,
         password: "",
@@ -141,7 +141,7 @@ const Login = () => {
 
     sendSignUpData(formData, config)
       .then((res) => {
-        alert(res.data.result);
+        // alert(res.data.result);
         window.location.reload(); 
       })
       .catch((e) => {

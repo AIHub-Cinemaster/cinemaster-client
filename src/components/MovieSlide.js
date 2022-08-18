@@ -48,7 +48,7 @@ const responsiveforRank = {
 };
 
 const MovieSlide = ({ movies, isRanking }) => {
-  console.log(movies);
+  // console.log(movies);
   return (
     <div>
       {isRanking ? (
@@ -75,13 +75,13 @@ const MovieSlide = ({ movies, isRanking }) => {
         <>
           <Carousel responsive={responsive} autoPlay={false} infinite={true}>
             {movies.map((movie, index) => (
-              <>
+              <div>
                 <MovieCard
                   key={index}
                   movie_id={movie.id}
                   movie_poster={movie.poster_path}
                 />
-              </>
+              </div>
             ))}
           </Carousel>
         </>

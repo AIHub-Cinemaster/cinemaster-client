@@ -471,5 +471,5 @@ body {
 
 /* 수정중 */
 .hover1:hover .eval-intro {
-  transform: translateY(65%);
+  transform: translateY(50%);
 }

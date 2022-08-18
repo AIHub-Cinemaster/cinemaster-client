@@ -18,7 +18,7 @@ const ReviewCard = ({review, getReviewData, accessType}) => {
   const onClickDeleteBtn = ()=>{
     if(window.confirm("삭제 하시겠습니까?")){
       deleteReview().then(res=>{
-        alert(res.data.result)
+        // alert(res.data.result)
         getReviewData(review.movieId)
       }).catch(err=>{
         console.log(err)
@@ -35,7 +35,7 @@ const ReviewCard = ({review, getReviewData, accessType}) => {
 
   const onClickLike = ()=> {
     if(!cookies.userData){
-      alert("로그인이 필요합니다");
+      // alert("로그인이 필요합니다");
       navigate('/login')
       return;
     }
