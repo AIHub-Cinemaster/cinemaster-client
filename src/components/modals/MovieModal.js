@@ -46,7 +46,7 @@ const MovieModal = ({ isOpen, setOpen, movie_id }) => {
       onRequestClose={() => {
         setOpen(false)
         $('body').css("overflow", "auto");
-        window.location.reload()
+        // window.location.reload()
       }}
       style={customStyles}
     >

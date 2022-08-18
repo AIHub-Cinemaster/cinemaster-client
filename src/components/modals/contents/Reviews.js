@@ -23,6 +23,7 @@ const Reviews = ({movieId})=>{
     try{
       axios.get(process.env.REACT_APP_SERVER_URL + `/reviewlist/${mid}`).then(res=>{
         setReviewsByMovie(res.data);
+        // console.log("efg", res.data)
       })
     } catch(error) {
       console.log(error)

@@ -94,6 +94,10 @@ body {
 .nav-logo {
   display: flex;
   align-items: center;
+  transition: 0.1s;
+}
+.nav-logo:hover{
+  color:#d44179
 }
 .pointer {
   cursor: pointer;
@@ -359,6 +363,14 @@ body {
 
 .footer-container {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.menu-item {
+  transition: 0.1s;
+}
+
+.menu-item:hover{
+  color: #ea4c88;
 }
 .eval-container {
   display: flex;

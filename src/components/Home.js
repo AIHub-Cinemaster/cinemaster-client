@@ -6,8 +6,10 @@ import Banner from "../components/Banner";
 import MovieSlide from "../components/MovieSlide";
 import ClipLoader from "react-spinners/ClipLoader";
 import "./../assets/css/App.css";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
 
   const dispatch = useDispatch();
@@ -53,6 +55,12 @@ const Home = () => {
       <div className="section-margin">
         <h1 className="white-big-font">Upcoming Movie</h1>
         <MovieSlide movies={upComingMovies.results} />
+      </div>
+      <div className="review-create-btn"
+        onClick={()=>{navigate('./eval')}}>
+        <h2 className='white-xl-font'>
+          More Movie ?
+        </h2>
       </div>
     </div>
   );

@@ -38,9 +38,10 @@ const MyWrittenList = () => {
     try{
       axios.get(`${process.env.REACT_APP_SERVER_URL}/review/user/${cookies.userData.shortId}`).then(res=>{
         setReviewsByUser(res.data);
+        console.log(res.data);
       })
     } catch(error) {
-      console.log(error)
+      console.log("erroreve ", error)
     }
   }
 
@@ -50,13 +51,17 @@ const MyWrittenList = () => {
 
   return (
     <>
-      <div>
-        <div>
-          {reviewsByUser.map((review, index) => (
-            <ReviewBox key={index} review={review} getReviewDataByUser={getReviewDataByUser} />
-          ))}
-        </div>
-      </div>
+      {
+        reviewsByUser.length === 0 ? (
+          <></>
+        ) : (
+          <>
+            {reviewsByUser.map((review, index) => (
+              <ReviewBox key={index} review={review} getReviewDataByUser={getReviewDataByUser} />
+            ))}
+          </>
+        )
+      }
     </>
   );
 };
