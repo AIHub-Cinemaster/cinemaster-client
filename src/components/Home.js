@@ -46,7 +46,7 @@ const Home = () => {
 
       <div className="section-margin">
         <h1 className="white-big-font">Ranking</h1>
-        <MovieSlide movies={popularMovies.results} />
+        <MovieSlide movies={popularMovies.results} isRanking={true} />
       </div>
       <div className="section-margin">
         <h1 className="white-big-font">Top Rated Movie</h1>
@@ -56,7 +56,7 @@ const Home = () => {
         <h1 className="white-big-font">Upcoming Movie</h1>
         <MovieSlide movies={upComingMovies.results} />
       </div>
-      <div className="review-create-btn"
+      <div className="review-create-btn mb-5"
         onClick={()=>{navigate('./eval')}}>
         <h2 className='white-xl-font'>
           More Movie ?

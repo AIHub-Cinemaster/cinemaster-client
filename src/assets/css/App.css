@@ -1,5 +1,6 @@
 @import "./reset.css";
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Collegiate+One&display=swap');
 
 html,
 body {
@@ -140,6 +141,20 @@ body {
   /* text-shadow:0px 0px 10px #a7a7a7; */
   text-align: right;
 }
+.grey-small-icons {
+  color: #a7a7a7;
+  font-size: 50px;
+  cursor: pointer;
+  /* text-shadow:0px 0px 10px #a7a7a7; */
+  text-align: left;
+}
+.color-small-icons {
+  color: #ea4c88;
+  font-size: 50px;
+  cursor: pointer;
+  text-shadow: 0px 0px 30px rgba(234, 76, 136, 0.5);
+  text-align: left;
+}
 
 .color-big-font {
   text-decoration: none;
@@ -196,6 +211,7 @@ body {
   height: 600px;
   display: flex;
   align-items: center;
+  background-size: cover;
 }
 
 .banner::before {
@@ -208,11 +224,37 @@ body {
 .banner-info {
   position: absolute;
   width: 40%;
+  margin-top: 180px;
   margin-left: 30px;
   /* z-index: 1; */
 }
+.rank {
+  color: #ccc;
+  font-size: 180px;
+  position: relative;
+  right:200px;
+  font-family: 'Alumni Sans Collegiate One', sans-serif;
+  z-index: -1;
+  top: 200px;
+}
+
+.rank-card {
+  /* padding: 0 10px; */
+  text-align: right;
+  margin:30px 100px;
+  width: 220px;
+  height: 330px;
+  transition: all 0.2s linear;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 10px;
+}
+
+.rank-card:hover{
+  transform: scale(1.1);
+}
 
 .card {
+  margin:15px 10px;
   width: 220px;
   height: 330px;
   transition: all 0.1s linear;
@@ -312,7 +354,8 @@ body {
   padding: 20px 15px 20px 15px;
   align-items: center;
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: space-between;
+  /* flex-direction: row-reverse; */
   /* justify-content: flex-end; */
 }
 
