@@ -46,7 +46,7 @@ const Home = () => {
 
       <div className="section-margin">
         <h1 className="white-big-font">Ranking</h1>
-        <MovieSlide movies={popularMovies.results} />
+        <MovieSlide movies={popularMovies.results} isRanking={true} />
       </div>
       <div className="section-margin">
         <h1 className="white-big-font">Top Rated Movie</h1>

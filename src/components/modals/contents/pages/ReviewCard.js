@@ -6,6 +6,7 @@ import Update from './Update';
 const ReviewCard = ({review, getReviewData, accessType}) => {
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [updateIsOpen, setUpdateIsOpen] = useState(false);
+  const [doYouLike, setDoYouLike] = useState("")
 
 
 
@@ -55,6 +56,10 @@ const ReviewCard = ({review, getReviewData, accessType}) => {
             </div>  
             <div className='review-content-last'>
               <div className='right nav-left-wrap'>
+              <span className="material-symbols-outlined grey-small-icons">
+                sentiment_satisfied
+              </span>
+              <span>{review.likeCount}</span>
 
                 <img id='profile-image-small' src={review.profileImg} />
 

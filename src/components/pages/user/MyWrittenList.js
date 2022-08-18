@@ -4,6 +4,7 @@ import $ from "jquery";
 import React, { useState, useEffect } from "react";
 import ReviewCard from "../../modals/contents/pages/ReviewCard";
 import MovieModal from "../../modals/MovieModal";
+import emptyBox from "./../../../assets/images/empty.png"
 
 const ReviewBox = ({review, getReviewDataByUser}) =>{
   const [isOpen, setOpen] = useState(false);
@@ -58,7 +59,11 @@ const MyWrittenList = () => {
     <>
       {
         reviewsByUser.length === 0 ? (
-          <></>
+          <>
+            <div style={{textAlign:"center"}}>
+              <img src={emptyBox} width="300px" className="m-5"/>
+            </div>
+          </>
         ) : (
           <>
             {reviewsByUser.map((review, index) => (

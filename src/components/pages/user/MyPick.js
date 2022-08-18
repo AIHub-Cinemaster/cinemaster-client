@@ -47,8 +47,6 @@ const MyMovieCard=({movieId})=>{
 
 const MyPick = ()=>{
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
-
-  // var wishListTemp = []; //임시저장
   const [myMovieIds, setMyMovieIds] = useState([]);
 
   useEffect(() => {
