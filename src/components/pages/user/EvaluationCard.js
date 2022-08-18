@@ -7,12 +7,9 @@ const API_KEY = "637131b35fda1dc6c125beada1dd5b9d";
 
 const IMAGE_URL = "https://www.themoviedb.org/t/p/w220_and_h330_face";
 //const IMAGE_URL = "https://img.tmdb.org/t/p/w/200";
-const MovieCardProps = {
-  movie: "Movie",
-};
 
 // ----------------------별점------------
-const EvaluationCard = ({ movieId }) => {
+const EvaluationCard = ({ movieId, movieListTemp }) => {
   const [movieInfo, setMovieInfo] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
 
@@ -37,21 +34,26 @@ const EvaluationCard = ({ movieId }) => {
     movieId: movieId,
     star: 0,
   });
+  
 
   const onChangeForm = (event) => {
     // value 값에 따라 별 색칠
-    if (event.target.name === "star") {
+    if (event.target.name === "star" ) {
       $(`.star span`).css({ width: `${event.target.value * 10 * 2}%` });
     }
-
     setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    });
+    ...form,
+      [event.target.name]:event.target.value
+    })
+    movieListTemp.push(form)
   };
+
+  var movieListTemp = []
 
   useEffect(() => {
     console.log(form);
+    console.log("movieListTemp", movieListTemp);
+
   }, [form]);
 
   return (
@@ -70,7 +72,7 @@ const EvaluationCard = ({ movieId }) => {
             ★★★★★
             <span>★★★★★</span>{" "}
             <input
-              name="star"
+              name='star'
               type="range"
               step=".5"
               min="0"

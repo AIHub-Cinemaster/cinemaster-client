@@ -12,6 +12,7 @@ import MyPick from "./components/pages/user/MyPick";
 import MyWrittenList from "./components/pages/user/MyWrittenList";
 import MyProfile from "./components/pages/user/MyProfile";
 import Identification from "./components/Identification";
+import Evaluation from "./components/Evaluation";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
 
-          {/* <Route path="/eval" element={<Login />} /> */}
+          <Route path="/eval" element={<Evaluation />} />
           <Route path="/mypick" element={<MyPick />} />
           <Route path="/writtenlist" element={<MyWrittenList />} />
           <Route path="/myprofile" element={<MyProfile />} />

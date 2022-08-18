@@ -56,7 +56,7 @@ const Header = () => {
                       }}
                       to="/eval"
                     >
-                      <h1 className="white-middle-font">Evaluation</h1>
+                      <h1 className="white-middle-font menu-item">Evaluation</h1>
                     </Link>
                   </li>
                   <li>
@@ -68,7 +68,7 @@ const Header = () => {
                       }}
                       to="/mypick"
                     >
-                      <h1 className="white-middle-font">My Pick</h1>
+                      <h1 className="white-middle-font menu-item">My Pick</h1>
                     </Link>
                   </li>
                 </ul>
@@ -178,7 +178,7 @@ const Header = () => {
                       className="white-middle-font"
                       to="/login"
                     >
-                      <h1 className="white-middle-font">Login</h1>
+                      <h1 className="white-middle-font menu-item">Login</h1>
                     </Link>
                   </li>
                 </ul>
