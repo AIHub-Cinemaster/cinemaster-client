@@ -23,20 +23,22 @@ const Home = () => {
     /*
      * 추천 영화 목록 서버에서 가져오기
      */
-    recommendMovieListLoad().then((res) => {
-      res.data.movieList.map((x) => {
-        /*
-         * API 서버에서 영화 데이터 가져오기
-         */
-        recommendMovieListTmdbLoad(x.movieId)
-          .then((res2) => {
-            setRecommendList((apidata) => [...apidata, res2.data]);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+    if(cookies.userData){
+      recommendMovieListLoad().then((res) => {
+        res.data.movieList.map((x) => {
+          /*
+           * API 서버에서 영화 데이터 가져오기
+           */
+          recommendMovieListTmdbLoad(x.movieId)
+            .then((res2) => {
+              setRecommendList((apidata) => [...apidata, res2.data]);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
       });
-    });
+    }
   }, []);
 
   const recommendMovieListLoad = async () => {
