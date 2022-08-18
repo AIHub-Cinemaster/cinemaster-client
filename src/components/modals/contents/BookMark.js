@@ -9,7 +9,6 @@ const BookMark = ({movieId})=>{
 
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [myCart, setMyCart] = useState([]);
-  // const [isMine, setIsMine] = useState("");
   const [inCart, setInCart] = useState("");
 
   useEffect(()=>{
