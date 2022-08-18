@@ -59,7 +59,6 @@ const MovieSlide = ({ movies, isRanking }) => {
             infinite={false}
           >
             {movies.map((movie, index) => (
-              <>
                 <MovieCard
                   key={index}
                   movie_id={movie.id}
@@ -67,7 +66,6 @@ const MovieSlide = ({ movies, isRanking }) => {
                   isRanking={isRanking}
                   rank={index + 1}
                 />
-              </>
             ))}
           </Carousel>
         </>
@@ -75,13 +73,11 @@ const MovieSlide = ({ movies, isRanking }) => {
         <>
           <Carousel responsive={responsive} autoPlay={false} infinite={true}>
             {movies.map((movie, index) => (
-              <div>
                 <MovieCard
                   key={index}
                   movie_id={movie.id}
                   movie_poster={movie.poster_path}
                 />
-              </div>
             ))}
           </Carousel>
         </>
