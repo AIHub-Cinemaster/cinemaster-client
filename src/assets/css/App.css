@@ -420,7 +420,17 @@ body {
   transform: translateY(65%);
 }
 
-/* .eval-card {
+.eval-button-form {
+  position: relative;
+  z-index: 1;
+  /* max-width: 360px; */
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  margin-top : 150px
+}
+
+.eval-card {
   height: 330px;
   margin: 5px;
   overflow: hidden;
@@ -455,4 +465,4 @@ body {
   background: black;
   opacity: 1;
   visibility: visible;
-} */
+}

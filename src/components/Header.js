@@ -56,7 +56,9 @@ const Header = () => {
                       }}
                       to="/eval"
                     >
-                      <h1 className="white-middle-font menu-item">Evaluation</h1>
+                      <h1 className="white-middle-font menu-item">
+                        Evaluation
+                      </h1>
                     </Link>
                   </li>
                   <li>
