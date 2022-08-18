@@ -23,7 +23,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-
           <Route path="/eval" element={<Evaluation />} />
           <Route path="/mypick" element={<MyPick />} />
           <Route path="/writtenlist" element={<MyWrittenList />} />

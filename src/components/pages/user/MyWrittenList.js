@@ -8,6 +8,10 @@ import MovieModal from "../../modals/MovieModal";
 const ReviewBox = ({review, getReviewDataByUser}) =>{
   const [isOpen, setOpen] = useState(false);
 
+  useEffect(()=>{
+    getReviewDataByUser()
+  },[isOpen])
+
   return (
     <>
       <div onClick={()=>{
@@ -34,14 +38,15 @@ const MyWrittenList = () => {
     getReviewDataByUser()
   },[])
 
+  
+
   const getReviewDataByUser = ()=>{
     try{
       axios.get(`${process.env.REACT_APP_SERVER_URL}/review/user/${cookies.userData.shortId}`).then(res=>{
         setReviewsByUser(res.data);
-        console.log(res.data);
       })
     } catch(error) {
-      console.log("erroreve ", error)
+      console.log(error)
     }
   }
 

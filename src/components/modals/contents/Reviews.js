@@ -10,7 +10,8 @@ const Reviews = ({movieId})=>{
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [reviewsByMovie, setReviewsByMovie] = useState([]);
   const [createIsOpen, setCreateIsOpen] = useState(false);
-
+  const [accessIsReview, setAccessIsReview] = useState(true)
+  
   useEffect(()=>{
     getReviewDataByMovie(movieId)
   },[])
@@ -37,6 +38,7 @@ const Reviews = ({movieId})=>{
           <Create createIsOpen={createIsOpen} setCreateIsOpen={setCreateIsOpen} movieId={movieId} getReviewDataByMovie={getReviewDataByMovie}/>
         ) : (
           <>
+            {/* 리뷰작성버튼 */}
             <div className="review-create-btn" onClick={()=>{
               if(!cookies.userData){
                 alert('로그인을 해주세요')
@@ -50,9 +52,10 @@ const Reviews = ({movieId})=>{
                 </span>
               </h2>
             </div>
+              {/* 리뷰리스트불러오기 */}
               {
                 reviewsByMovie.map((review, index)=>(
-                    <ReviewCard key={index} review={review} getReviewData={getReviewDataByMovie} />
+                    <ReviewCard key={index} review={review} getReviewData={getReviewDataByMovie} accessType={accessIsReview} />
                 ))
               }
           </>
