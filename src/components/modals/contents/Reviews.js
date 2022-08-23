@@ -26,7 +26,7 @@ const Reviews = ({ movieId }) => {
         .get(process.env.REACT_APP_SERVER_URL + `/reviewlist/${mid}`)
         .then((res) => {
           setReviewsByMovie(res.data);
-          // console.log("efg", res.data)
+          // console.log("res.data: ", res.data)
         });
     } catch (error) {
       console.log(error);

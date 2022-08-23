@@ -21,13 +21,13 @@ const Update = ({updateIsOpen,setUpdateIsOpen,reviewId, getReviewData, movieId})
   }
 
   // useEffect(()=>{
-  //   console.log(updateData);
+  //   console.log(updateData.star);
   // }, [updateData]);
 
   const onChangeUpdateData = (event)=>{
     // value 값에 따라 별 색칠
     if(event.target.name === "star"){
-      $(`.star span`).css({ width: `${event.target.value * 10 * 2}%` });
+      $(`.star .color_star`).css({ width: `${event.target.value * 10 * 2}%` });
     }
     
     setUpdateData({
@@ -63,7 +63,7 @@ const Update = ({updateIsOpen,setUpdateIsOpen,reviewId, getReviewData, movieId})
         <label htmlFor="star" className="form-label">STAR</label><br/>
         <span className="star">
           ★★★★★
-          <span style={{width: `${Number(updateData.star) * 10 * 2}%`}}>
+          <span className="color_star" style={{width: `${Number(updateData.star) * 10 * 2}%`}}>
             ★★★★★
           </span>
           <input name="star" type="range" step=".5" min="0" max="5" defaultValue={updateData.star} onChange={onChangeUpdateData} />

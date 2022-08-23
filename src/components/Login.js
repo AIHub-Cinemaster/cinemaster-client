@@ -7,6 +7,8 @@ import "./../assets/css/Login.css";
 import kakaoLogin from "./../assets/images/kakaoLogin.png";
 import googleLogin from "./../assets/images/googleLogin.png";
 import naverLogin from "./../assets/images/naverLogin.png";
+import Swal from 'sweetalert2'
+
 
 const Login = () => {
   useEffect(() => {
@@ -14,14 +16,8 @@ const Login = () => {
       $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
     });
   }, []);
-  // $( document ).ready( function(){
-  //   $('.message a').click(function(){
-  //     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-  //   });
-  // })
-
+  
   //----------------------------- 공통 -----------------------------//
-  const [isSignUp, setSignUp] = useState(false);
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
 
@@ -141,8 +137,19 @@ const Login = () => {
 
     sendSignUpData(formData, config)
       .then((res) => {
+        Swal.fire({
+          iconColor:'#ea4c88',
+          background:'rgba(18,18,18,0.6)',
+          position:'top',
+          icon: 'success',
+          text:`${res.data.result}`,
+          showConfirmButton: false,
+          timer: 5000
+        }).then(res=>{
+          window.location.reload(); 
+        })
         // alert(res.data.result);
-        window.location.reload(); 
+        // window.location.reload(); 
       })
       .catch((e) => {
         setUpErrorMessage(e.response.data.error);
@@ -171,7 +178,7 @@ const Login = () => {
   const onChangeProfileImg = (e) => {
     if (e.target.files[0]) {
       setProfileImage(e.target.files[0]);
-      console.log(e.target.files[0]);
+      // console.log(e.target.files[0]);
     } else {
       //업로드 취소할 시
       // setProfileImage(

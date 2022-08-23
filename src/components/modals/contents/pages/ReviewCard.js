@@ -104,7 +104,7 @@ const ReviewCard = ({review, getReviewData, accessType}) => {
                           </>
                         )
                       }
-                      <span className='grey-small-font'>&nbsp;{review.likeUsers.length}</span>
+                      <span className='grey-small-font'>&nbsp;{review.likeCount}</span>
                     </>
                   ) : (<></>)
                 }
