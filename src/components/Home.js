@@ -20,10 +20,11 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(movieAction.getMovies());
+
     /*
      * 추천 영화 목록 서버에서 가져오기
      */
-    if(cookies.userData){
+    if (cookies.userData) {
       recommendMovieListLoad().then((res) => {
         res.data.movieList.map((x) => {
           /*
@@ -92,10 +93,10 @@ const Home = () => {
         <div
           className="review-create-btn mb-5"
           onClick={() => {
-            if(cookies.userData){
+            if (cookies.userData) {
               navigate("./eval");
             } else {
-              navigate("/login")
+              navigate("/login");
               // alert("로그인이 필요합니다.")
             }
           }}
