@@ -13,6 +13,7 @@ const MovieCard = ({ movie_id, movie_poster, isRanking, rank}) => {
         isRanking ? (
           <>
             <div
+              id={movie_id}
               className="rank-card"
               onClick={()=>{
                 setOpen(true);
@@ -30,6 +31,7 @@ const MovieCard = ({ movie_id, movie_poster, isRanking, rank}) => {
         ) : (
           <>
             <div
+              id={movie_id}
               className="card"
               onClick={()=>{
                 setOpen(true);

@@ -1,40 +1,22 @@
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { movieAction } from "../redux/actions/MovieAction";
-import MovieModal from "./modals/MovieModal";
 import React, { useEffect, useState } from "react";
+import $ from "jquery";
+
 
 const SearchBar = () => {
   const dispatch = useDispatch();
   const { allMovies, loading } = useSelector((state) => state.allMovie);
-  const [isOpen, setOpen] = useState(false);
-  const [selId, setSelId] = useState("");
 
   useEffect(() => {
     dispatch(movieAction.getAllMovies());
   }, []);
 
   const handleOnSelect = (item) => {
-    // the item selected
-    console.log(item);
-    setSelId(item.id);
-    setOpen(true);
+    let selectMovie = '#' + item.id;
+    $(selectMovie).click()
   };
-
-  // const handleOnSearch = (string, results) => {
-  //   // onSearch will have as the first callback parameter
-  //   // the string searched and for the second the results.
-  //   console.log(string, results);
-  // };
-
-  // const handleOnHover = (result) => {
-  //   // the item hovered
-  //   console.log(result);
-  // };
-
-  // const handleOnFocus = () => {
-  //   console.log("Focused");
-  // };
 
   const formatResult = (item) => {
     return (
@@ -77,7 +59,6 @@ const SearchBar = () => {
           placeholder={"Please enter the movie title."}
         />
       </div>
-      <MovieModal isOpen={isOpen} setOpen={setOpen} movie_id={selId} />
     </>
   );
 };
