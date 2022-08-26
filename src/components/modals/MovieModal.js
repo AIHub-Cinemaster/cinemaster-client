@@ -1,9 +1,9 @@
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GetRecommendations from "./contents/GetRecommendations";
 import GetSimilarMovies from "./contents/GetSimilarMovies";
 import Reviews from "./contents/Reviews";
-import $ from 'jquery'
+import $ from "jquery";
 import MovieTrailer from "./contents/MovieTrailer";
 import MovieIntroduction from "./contents/MovieIntroduction";
 import BookMark from "./contents/BookMark";
@@ -33,48 +33,46 @@ const customStyles = {
     right: 0,
     bottom: 0,
     backgroundColor: "rgba(051, 051, 051, 0.5)",
-    backdropFilter: "blur(7px)"
+    backdropFilter: "blur(7px)",
+    zIndex: 2,
   },
 };
 
 const MovieModal = ({ isOpen, setOpen, movie_id }) => {
-  const navigate = useNavigate('/');
-
+  const navigate = useNavigate("/");
   const [movieId, setMovieId] = useState(movie_id);
-
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={() => {
-        $('body').css("overflow", "auto");
-        $('.react-multiple-carousel__arrow').css("display", "inline-block");
-        navigate('/')
-        setOpen(false)
+        $("body").css("overflow", "auto");
+        $(".react-multiple-carousel__arrow").css("display", "inline-block");
+        navigate("/");
+        setOpen(false);
       }}
       style={customStyles}
     >
-        <MovieTrailer movieId={movieId} />
-        <div className="modal-box">
-            <MovieIntroduction movieId={movieId} />
-            <BookMark movieId={movieId} />
+      <MovieTrailer movieId={movieId} />
+      <div className="modal-box">
+        <MovieIntroduction movieId={movieId} />
+        <BookMark movieId={movieId} />
 
-          <h1 className="white-big-font" style={{ marginTop: "30px" }}>
-            Recommendations
-          </h1>
-          <GetRecommendations movieId={movieId} setMovieId={setMovieId} />
+        <h1 className="white-big-font" style={{ marginTop: "30px" }}>
+          Recommendations
+        </h1>
+        <GetRecommendations movieId={movieId} setMovieId={setMovieId} />
 
-          <h1 className="white-big-font" style={{ marginTop: "30px" }}>
-            Similar Movies
-          </h1>
-          <GetSimilarMovies movieId={movieId} setMovieId={setMovieId} />
+        <h1 className="white-big-font" style={{ marginTop: "30px" }}>
+          Similar Movies
+        </h1>
+        <GetSimilarMovies movieId={movieId} setMovieId={setMovieId} />
 
-          <h1 className="white-big-font" style={{ marginTop: "30px" }}>
-            REVIEW
-          </h1>
-          <Reviews movieId={movieId} />
-        </div>
+        <h1 className="white-big-font" style={{ marginTop: "30px" }}>
+          REVIEW
+        </h1>
+        <Reviews movieId={movieId} />
+      </div>
     </Modal>
-    
   );
 };
 

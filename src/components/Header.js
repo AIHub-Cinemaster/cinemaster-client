@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "./SearchBar";
 import axios from "axios";
 
 const Header = () => {
   const navigate = useNavigate();
   const [myInfo, setMyInfo] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
-
+  /*
+  TODO : AutoCompelete 기능
+  */
   useEffect(() => {
     if (cookies.userData) {
       getUserInfo()
@@ -27,6 +30,7 @@ const Header = () => {
       `${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`
     );
   };
+
   return (
     <header>
       <div className="nav-container">
@@ -79,7 +83,7 @@ const Header = () => {
               <></>
             )}
           </div>
-
+          <SearchBar />
           <div className="nav-right-wrap">
             {cookies.userData ? (
               <>
@@ -93,7 +97,7 @@ const Header = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      <strong>{cookies.userData.name}</strong>님 로그인 중
+                      <strong>{cookies.userData.name}</strong> Logging
                     </a>
                     <ul className="dropdown-menu dropdown-menu-dark">
                       <li>
