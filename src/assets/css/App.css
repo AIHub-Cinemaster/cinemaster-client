@@ -235,11 +235,16 @@ body {
   background-size: cover;
   width: 308px;
   height: 462px;
-  transition: all 0.1s linear;
+  transition: all 0.2s linear;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   border-radius: 15px;
   margin-right: 80px;
+  cursor: pointer;
   /* z-index: 1; */
+}
+
+.banner-card:hover{
+  transform: scale(1.1);
 }
 
 .banner-info {
@@ -297,17 +302,13 @@ body {
   height: 580px;
   background: linear-gradient(to bottom, black 85%, #181818 100%);
 }
-.bookmark-area {
-  text-align: right;
-  position: relative;
-  bottom: 160px;
+
+.flex-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* .movie-info-area{
-  position: relative;
-  bottom: 70px;
-
-} */
 .modal-box .right {
   text-align: right;
 }
@@ -506,4 +507,5 @@ body {
 .search-result{
   display: flex; 
   align-items: center;
+  cursor: pointer;
 }

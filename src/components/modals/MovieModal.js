@@ -6,7 +6,6 @@ import Reviews from "./contents/Reviews";
 import $ from "jquery";
 import MovieTrailer from "./contents/MovieTrailer";
 import MovieIntroduction from "./contents/MovieIntroduction";
-import BookMark from "./contents/BookMark";
 import { useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root");
@@ -55,7 +54,6 @@ const MovieModal = ({ isOpen, setOpen, movie_id }) => {
       <MovieTrailer movieId={movieId} />
       <div className="modal-box">
         <MovieIntroduction movieId={movieId} />
-        <BookMark movieId={movieId} />
 
         <h1 className="white-big-font" style={{ marginTop: "30px" }}>
           Recommendations

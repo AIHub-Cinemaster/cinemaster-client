@@ -1,4 +1,6 @@
 import React from "react";
+import $ from "jquery";
+
 
 const Banner = ({ movie }) => {
   return (
@@ -25,6 +27,9 @@ const Banner = ({ movie }) => {
               "url(" +
               `https://www.themoviedb.org/t/p/w220_and_h330_multi_faces${movie.poster_path}` +
               ")",
+          }}
+          onClick={()=>{
+            $('#' + movie.id).click()
           }}
         ></div>
       </div>

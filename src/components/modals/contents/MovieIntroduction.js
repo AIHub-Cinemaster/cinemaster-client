@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import BookMark from "./BookMark";
+
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const MovieIntroduction = ({movieId})=>{
@@ -25,24 +27,32 @@ const MovieIntroduction = ({movieId})=>{
   return (
     <>
       <div className="movie-info-area">
-        <h1 className="white-xl-font">
-          {movieInfo.original_title}
-        </h1>
-        <p className="grey-small-font mb-5">
-          {movieInfo.release_date}&nbsp;/&nbsp;
-          {parseInt(movieInfo.runtime / 60) + "h "+movieInfo.runtime % 60 + "min"}&nbsp;/&nbsp;
-          {
-            movieInfo.genres ? (
-              <>
-                {
-                  movieInfo.genres.map((genre)=>{
-                    return genre.name + " "
-                  })
-                }
-              </>
-            ):(<> {movieInfo.tagline} </>)
-          }
-        </p>
+        <div className="flex-box">
+          <div>
+            <h1 className="white-xl-font">
+              {movieInfo.original_title}
+            </h1>
+            <p className="grey-small-font mb-5">
+              {movieInfo.release_date}&nbsp;/&nbsp;
+              {parseInt(movieInfo.runtime / 60) + "h "+movieInfo.runtime % 60 + "min"}&nbsp;/&nbsp;
+              {
+                movieInfo.genres ? (
+                  <>
+                    {
+                      movieInfo.genres.map((genre)=>{
+                        return genre.name + " "
+                      })
+                    }
+                  </>
+                ):(<> {movieInfo.tagline} </>)
+              }
+            </p>
+          </div>
+          <BookMark movieId={movieId} />
+          
+
+        </div>
+        
         <p className="white-small-font">
           SUMMARY
         </p>

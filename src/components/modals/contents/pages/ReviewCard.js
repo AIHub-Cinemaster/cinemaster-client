@@ -4,7 +4,7 @@ import {useCookies} from "react-cookie";
 import { useNavigate } from 'react-router-dom';
 import Update from './Update';
 
-const ReviewCard = ({review, getReviewData, accessType}) => {
+const ReviewCard = ({review, getReviewData, accessType, setCreateAuth}) => {
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [updateIsOpen, setUpdateIsOpen] = useState(false);
   const [doYouLike, setDoYouLike] = useState("");
@@ -22,6 +22,7 @@ const ReviewCard = ({review, getReviewData, accessType}) => {
       deleteReview().then(res=>{
         // alert(res.data.result)
         getReviewData(review.movieId)
+        setCreateAuth(true)
       }).catch(err=>{
         console.log(err)
       })

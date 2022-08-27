@@ -45,7 +45,7 @@ const SearchBar = () => {
         <ReactSearchAutocomplete
           items={allMovies}
           onSelect={handleOnSelect}
-          autoFocus
+          // autoFocus
           formatResult={formatResult}
           showIcon={true}
           maxResults={8}
