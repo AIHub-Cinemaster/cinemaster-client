@@ -14,28 +14,26 @@ const SearchBar = () => {
   }, []);
 
   const handleOnSelect = (item) => {
-    let selectMovie = '#' + item.id;
-    $(selectMovie).click()
+    $('#' + item.id).click()
   };
 
   const formatResult = (item) => {
     return (
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div className="search-result" >
         <img
           src={`https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}`}
           style={{
             width: "50px",
+            marginRight: "20px",
           }}
         />
         <ul
           style={{
-            fontSize: "20px",
             fontFamily: "Archivo",
-            marginLeft: "20px",
           }}
         >
-          <li>{item.title}</li>
-          <li>★ {item.vote_average / 2}</li>
+          <li className="white-middle-font">{item.title}</li>
+          <li className="grey-small-font mt-1">★ {item.vote_average / 2}</li>
         </ul>
       </div>
     );
@@ -43,20 +41,24 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="search-div" style={{ width: 400 }}>
+      <div style={{ width: 400, zIndex:1}}>
         <ReactSearchAutocomplete
-          // onSearch={handleOnSearch}
-          // onHover={handleOnHover}
-          // onFocus={handleOnFocus}
           items={allMovies}
           onSelect={handleOnSelect}
           autoFocus
           formatResult={formatResult}
           showIcon={true}
-          maxResults={7}
+          maxResults={8}
           showNoResults={false}
           fuseOptions={{ keys: ["title"] }}
-          placeholder={"Please enter the movie title."}
+          placeholder={"Please Enter the Movie Title."}
+          styling={{
+            backgroundColor:"#141414",
+            border:"none",
+            color:"white",
+            hoverBackgroundColor: "#242424",
+            lineColor: "#242424"
+          }}
         />
       </div>
     </>

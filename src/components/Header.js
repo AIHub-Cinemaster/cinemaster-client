@@ -83,7 +83,16 @@ const Header = () => {
               <></>
             )}
           </div>
-          <SearchBar />
+
+          {
+            // 메인 화면에서만 검색창 표시
+            window.location.pathname === '/' ? (
+              <div className="nav-middle-wrap">
+                <SearchBar />   
+              </div>
+          ):(<></>)
+          }
+
           <div className="nav-right-wrap">
             {cookies.userData ? (
               <>
@@ -97,7 +106,7 @@ const Header = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      <strong>{cookies.userData.name}</strong> Logging
+                      Hello, <strong>{cookies.userData.name}</strong> !
                     </a>
                     <ul className="dropdown-menu dropdown-menu-dark">
                       <li>

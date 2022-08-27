@@ -25,7 +25,7 @@ const EvaluationCard = ({ movieId, movieList, setMovieList }) => {
   }, []);
 
   useEffect(() => {
-    console.log(form);
+    // console.log(form);
     setMovieList(
       movieList.map((movie) =>
         movie.movieId === form.movieId
@@ -56,7 +56,7 @@ const EvaluationCard = ({ movieId, movieList, setMovieList }) => {
       });
     }
 
-    console.log(event.target.name.split(" ")[1], event.target.value);
+    // console.log(event.target.name.split(" ")[1], event.target.value);
     setForm({
       ...form,
       movieId: event.target.name.split(" ")[1],

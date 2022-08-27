@@ -8,6 +8,10 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  background-color: #1c1c1c;
+  color: white !important;
+  /* font-family: "Roboto", sans-serif; */
+  font-family: 'Archivo', sans-serif;
 }
 .root {
   position: absolute;
@@ -21,13 +25,6 @@ body {
 
 * {
   box-sizing: border-box;
-}
-
-body {
-  background-color: #1c1c1c;
-  color: white !important;
-  /* font-family: "Roboto", sans-serif; */
-  font-family: 'Archivo', sans-serif;
 }
 
 .section-margin {
@@ -76,6 +73,11 @@ body {
 }
 
 .nav-left-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.nav-middle-wrap {
   display: flex;
   align-items: center;
 }
@@ -237,7 +239,7 @@ body {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   border-radius: 15px;
   margin-right: 80px;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .banner-info {
@@ -245,7 +247,7 @@ body {
   width: 40%;
   /* margin-top: 150px; */
   margin-left: 30px;
-  z-index: 1;
+  /* z-index: 1; */
 }
 .rank {
   color: #ccc;
@@ -497,15 +499,11 @@ body {
   transition: 0.5s;
 }
 
-/* 수정중 */
 .hover1:hover .eval-intro {
   transform: translateY(50%);
 }
 
-
-.search-div {
-  position: absolute;
-  margin-top: 15px;
-  margin-left:450px;
-  z-index: 1;
+.search-result{
+  display: flex; 
+  align-items: center;
 }

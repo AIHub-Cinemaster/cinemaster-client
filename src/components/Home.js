@@ -102,7 +102,7 @@ const Home = () => {
           }}
         >
           <h2 className="white-xl-font">
-            Click here for recommended movies :)
+            Click Here for Recommended Movies :)
           </h2>
         </div>
       ) : (
