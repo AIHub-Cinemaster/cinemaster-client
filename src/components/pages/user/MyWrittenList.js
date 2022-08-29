@@ -51,10 +51,6 @@ const MyWrittenList = () => {
     }
   }
 
-  useEffect(() => {
-    getReviewDataByUser();
-  }, []);
-
   return (
     <>
       {

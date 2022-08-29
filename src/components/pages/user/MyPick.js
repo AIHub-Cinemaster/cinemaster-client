@@ -75,7 +75,7 @@ const MyPick = () => {
 
   return (
     <>
-      <div className="mt-4">
+      <div className="mt-4 flex-box-left">
         <span className="material-icons color-icons">bookmark</span>
         <h1 className="white-xl-font set-inline">My Pick</h1>
       </div>

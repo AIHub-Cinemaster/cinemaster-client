@@ -57,6 +57,15 @@ const Evaluation = () => {
   };
 
   return (
+    <>
+    <div className="mt-4 flex-box-left mb-5">
+      <span className="material-symbols-outlined color-icons">
+        star
+      </span>
+      <h1 className="white-xl-font set-inline">Evaluation</h1>
+    </div>
+
+    
     <div>
       {movieIds.length === 0 ? (
         <></>
@@ -89,6 +98,7 @@ const Evaluation = () => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 

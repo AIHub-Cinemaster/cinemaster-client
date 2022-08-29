@@ -18,7 +18,6 @@ const MovieIntroduction = ({movieId})=>{
     axios.get(
       `https://api.themoviedb.org/3/movie/${mId}?api_key=${API_KEY}&language=en-US`).then(res=>{
         setMovieInfo(res.data)
-        return res.data.id
       }).catch(err=>{
         console.log(err)     
       })

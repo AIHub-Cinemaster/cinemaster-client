@@ -13,6 +13,7 @@ import MyWrittenList from "./components/pages/user/MyWrittenList";
 import MyProfile from "./components/pages/user/MyProfile";
 import Identification from "./components/Identification";
 import Evaluation from "./components/Evaluation";
+import MyReport from "./components/report/MyReport";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/writtenlist" element={<MyWrittenList />} />
           <Route path="/myprofile" element={<MyProfile />} />
           <Route path="/identification" element={<Identification />} />
+          <Route path="/myreport" element={<MyReport />} />
 
           <Route path="oauth">
             <Route path="kakao/callback" element={<KakaoCallBack />} />

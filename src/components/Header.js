@@ -125,7 +125,7 @@ const Header = () => {
                               className="dropdown-item"
                               to="/identification"
                             >
-                              My Profile
+                              Profile Edit
                             </Link>
                           </>
                         ) : (
@@ -139,7 +139,7 @@ const Header = () => {
                               className="dropdown-item"
                               to="/myprofile"
                             >
-                              My Profile
+                              Profile Edit
                             </Link>
                           </>
                         )}
@@ -159,6 +159,23 @@ const Header = () => {
                           to="/writtenlist"
                         >
                           My Written List
+                        </Link>
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+
+                      <li>
+                        <Link
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            textDecoration: "none",
+                          }}
+                          className="dropdown-item"
+                          to="/myreport"
+                        >
+                          My Report
                         </Link>
                       </li>
                       <li>

@@ -3,6 +3,9 @@ import { useCookies } from "react-cookie";
 import $ from "jquery";
 import axios from "axios";
 
+const API_KEY = process.env.REACT_APP_API_KEY;
+
+
 const Create = ({
   createIsOpen,
   setCreateIsOpen,
@@ -17,11 +20,35 @@ const Create = ({
     content: "",
     shortId: cookies.userData.shortId,
     star: 0,
+    genreList:[]
   });
 
   // useEffect(()=>{
   //   console.log(createReview);
   // }, [createReview]);
+
+  useEffect(()=>{
+    getGenresByMovieId(movieId)
+  },[])
+  
+  let genresArr = []
+
+  const getGenresByMovieId = (mId) => {
+    axios.get(
+      `https://api.themoviedb.org/3/movie/${mId}?api_key=${API_KEY}&language=en-US`).then(res=>{
+        return res.data.genres
+      }).then(res=>{
+        res.map((genre)=>{
+          genresArr.push(genre.name)
+        })
+        setCreateReview({
+          ...createReview,
+          genreList: genresArr,
+        });
+      }).catch(err=>{
+        console.log(err)     
+      })
+  };
 
   const onChangeCreateReview = (event) => {
     // value 값에 따라 별 색칠
