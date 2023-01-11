@@ -9,13 +9,12 @@ import googleLogin from "./../assets/images/googleLogin.png";
 import naverLogin from "./../assets/images/naverLogin.png";
 import Swal from 'sweetalert2'
 
+import { sendSignUpData, sendSignInData } from "../lib/api/user";
 
 const Login = () => {
-  useEffect(() => {
-    $(".message span").click(function () {
-      $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
-    });
-  }, []);
+  const onToggleSign = () => {
+    $("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
+  }
   
   //----------------------------- 공통 -----------------------------//
   const navigate = useNavigate();
@@ -41,21 +40,17 @@ const Login = () => {
       return;
     }
 
-    sendSignInData()
+    sendSignInData(signInData)
       .then((res) => {
-        // console.log("res", res.data);
         setCookie("userData", res.data, { path: "/" });
-        // alert("로그인이 완료되었습니다.");
         navigate("/");
-        window.location.reload();//헤더-프로필 이미지 불러오려면 새로고침 필요함
+        window.location.reload();
       })
       .catch((e) => {
         console.log(e);
         setInErrorMessage(e.response.data.fail);
       })
-      .finally(() => {
-        // console.log("final", cookies.userData);
-      });
+      
   };
 
   // 로그인 data를 입력받는 함수
@@ -64,11 +59,6 @@ const Login = () => {
       ...signInData,
       [event.target.name]: event.target.value,
     });
-  };
-
-  const sendSignInData = async () => {
-    // console.log(signInData);
-    return await axios.post(process.env.REACT_APP_SERVER_URL + "/user/login", signInData);
   };
 
   //----------------------------- 회원가입 -----------------------------//
@@ -120,20 +110,12 @@ const Login = () => {
     ///////////// 프로필 이미지
     let formData = new FormData();
     const profileImg = $("#profile_input")[0].files[0];
-    const config = {
-      header: { "Content-Type": "multipart/form-data" },
-    };
+    const config = { "Content-Type": "multipart/form-data"}
 
     formData.append("file", profileImg);
     formData.append("name", signUpData.name);
     formData.append("email", signUpData.email);
     formData.append("password", signUpData.password);
-
-    //// fromData 내부 데이터 로그 확인용
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
-    // onChangeSignUpProfileImg(profileImg);
 
     sendSignUpData(formData, config)
       .then((res) => {
@@ -154,11 +136,6 @@ const Login = () => {
       .catch((e) => {
         setUpErrorMessage(e.response.data.error);
       });
-  };
-
-  const sendSignUpData = async (formData, config) => {
-    // console.log("signUpdaata");
-    return await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/signUp`, formData, config);
   };
 
   // 회원가입 data를 입력받는 함수
@@ -244,7 +221,7 @@ const Login = () => {
 
               <p className="message">
                 Not registered?{" "}
-                <span>
+                <span onClick={onToggleSign}>
                   <strong>Create an account</strong>
                 </span>
               </p>
@@ -320,7 +297,7 @@ const Login = () => {
               </button>
               <p className="message">
                 Already registered?{" "}
-                <span>
+                <span onClick={onToggleSign}>
                   <strong>Sign In</strong>
                 </span>
               </p>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import ReactWordcloud from 'react-wordcloud';
 
 
