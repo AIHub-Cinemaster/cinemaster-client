@@ -27,7 +27,7 @@ const Header = () => {
 
   const getUserInfo = async () => {
     return await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`,
+      `${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`
     );
   };
 
@@ -86,13 +86,11 @@ const Header = () => {
 
           {
             // 메인 화면에서만 검색창 표시
-            window.location.pathname === "/" ? (
+            window.location.pathname === '/' ? (
               <div className="nav-middle-wrap">
-                <SearchBar />
+                <SearchBar />   
               </div>
-            ) : (
-              <></>
-            )
+          ):(<></>)
           }
 
           <div className="nav-right-wrap">
@@ -192,7 +190,7 @@ const Header = () => {
                             window.location.reload();
                           }}
                         >
-                          Logout
+                          LOGOUT
                         </p>
                       </li>
                     </ul>
