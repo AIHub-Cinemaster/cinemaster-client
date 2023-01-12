@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import axios from 'axios';
+import { getUserInfo } from 'lib/api/user';
 
 interface IMyInfo {
   profileImg: string;
@@ -28,21 +28,11 @@ const Header = () => {
   */
   useEffect(() => {
     if (cookies.userData) {
-      getUserInfo()
-        .then((res) => {
-          setMyInfo(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      getUserInfo(cookies.userData.shortId).then((response) => {
+        setMyInfo(response.data);
+      });
     }
   }, []);
-
-  const getUserInfo = async () => {
-    return await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`,
-    );
-  };
 
   return (
     <header>

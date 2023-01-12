@@ -15,16 +15,12 @@ const Reviews = ({ movieId }) => {
 
   useEffect(() => {
     getReviewDataByMovie(movieId);
-  }, []);
-
-  useEffect(() => {
-    getReviewDataByMovie(movieId);
   }, [movieId]);
 
   useEffect(()=>{
     if(cookies.userData){
       // 로그인 상태 && 리뷰중에 내 작성글 있으면 작성불가
-      reviewsByMovie.map((review)=>{
+      reviewsByMovie.map((review) => {
         if(review.shortId === cookies.userData.shortId){
           setCreateAuth(false);
           return

@@ -27,28 +27,28 @@ export const getUpComingMovies = apiClient.get(
   `/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
 );
 
-export const getRecommendationedMovies = async (movieId) => {
+export const getRecommendationedMovies = async (movieId: string) => {
   return await apiClient({
     method: "get",
     url: `/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`
   })
 }
 
-export const getSimilarMovies = async (movieId) => {
+export const getSimilarMovies = async (movieId: string) => {
   return await apiClient({
     method: "get",
     url: `movie/${movieId}/similar?api_key=${API_KEY}&language=en-US&page=1`
   })
 }
 
-export const getMovieInfoByMovieId = async(movieId) => {
+export const getMovieInfoByMovieId = async(movieId: string) => {
   return await apiClient({
     method: "get",
     url: `/movie/${movieId}?api_key=${API_KEY}&language=en-US`
   })
 }
 
-export const getTrailerByMovieId = async(movieId) => {
+export const getTrailerByMovieId = async(movieId: string) => {
   return await apiClient({
     method: "get",
     url: `/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`
