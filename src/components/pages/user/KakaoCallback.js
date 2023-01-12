@@ -34,6 +34,8 @@ const KakaoCallBack = () => {
       },
     });
   };
+
+  return <></>
 };
 
 export default KakaoCallBack;
