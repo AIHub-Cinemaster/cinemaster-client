@@ -34,6 +34,8 @@ const NaverCallBack = () => {
       },
     });
   };
+  return <></>
+
 };
 
 export default NaverCallBack;

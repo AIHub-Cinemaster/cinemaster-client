@@ -1,16 +1,23 @@
-import React from "react";
-import $ from "jquery";
+import $ from 'jquery';
 
+interface IProps {
+  movie: {
+    poster_path: string;
+    title: string;
+    overview: string;
+    id: string;
+  };
+}
 
-const Banner = ({ movie }) => {
+const Banner = ({ movie }: IProps) => {
   return (
     <div
       className="banner"
       style={{
         backgroundImage:
-          "url(" +
+          'url(' +
           `https://www.themoviedb.org/t/p/w220_and_h330_multi_faces${movie.poster_path}` +
-          ")",
+          ')',
       }}
     >
       <div className="banner-cover">
@@ -24,16 +31,15 @@ const Banner = ({ movie }) => {
           className="banner-card set-inline"
           style={{
             backgroundImage:
-              "url(" +
+              'url(' +
               `https://www.themoviedb.org/t/p/w220_and_h330_multi_faces${movie.poster_path}` +
-              ")",
+              ')',
           }}
-          onClick={()=>{
-            $('#' + movie.id).click()
+          onClick={() => {
+            $('#' + movie.id).click();
           }}
         ></div>
       </div>
-      
     </div>
   );
 };
