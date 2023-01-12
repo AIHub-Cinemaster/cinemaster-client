@@ -1,14 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-import SearchBar from "./SearchBar";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+import SearchBar from './SearchBar';
+import axios from 'axios';
+
+interface IMyInfo {
+  profileImg: string;
+  type: string;
+  email: string;
+  name: string;
+  shortId: string;
+}
 
 const Header = () => {
   const navigate = useNavigate();
-  const [myInfo, setMyInfo] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
+  const [myInfo, setMyInfo] = useState<IMyInfo>({
+    profileImg: '',
+    type: '',
+    email: '',
+    name: '',
+    shortId: '',
+  });
+  const [cookies, setCookie, removeCookie] = useCookies(['userData']);
   /*
   TODO : AutoCompelete 기능
   */
@@ -17,7 +31,6 @@ const Header = () => {
       getUserInfo()
         .then((res) => {
           setMyInfo(res.data);
-          // window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -27,7 +40,7 @@ const Header = () => {
 
   const getUserInfo = async () => {
     return await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`
+      `${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`,
     );
   };
 
@@ -38,9 +51,9 @@ const Header = () => {
           <div className="nav-left-wrap ">
             <Link
               style={{
-                display: "flex",
-                alignItems: "center",
-                textDecoration: "none",
+                display: 'flex',
+                alignItems: 'center',
+                textDecoration: 'none',
               }}
               to="/"
             >
@@ -54,9 +67,9 @@ const Header = () => {
                   <li>
                     <Link
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        textDecoration: "none",
+                        display: 'flex',
+                        alignItems: 'center',
+                        textDecoration: 'none',
                       }}
                       to="/eval"
                     >
@@ -68,9 +81,9 @@ const Header = () => {
                   <li>
                     <Link
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        textDecoration: "none",
+                        display: 'flex',
+                        alignItems: 'center',
+                        textDecoration: 'none',
                       }}
                       to="/mypick"
                     >
@@ -88,35 +101,40 @@ const Header = () => {
             // 메인 화면에서만 검색창 표시
             window.location.pathname === '/' ? (
               <div className="nav-middle-wrap">
-                <SearchBar />   
+                <SearchBar />
               </div>
-          ):(<></>)
+            ) : (
+              <></>
+            )
           }
 
           <div className="nav-right-wrap">
             {cookies.userData ? (
               <>
-                <img src={myInfo.profileImg} id="profile-image-small" />
+                <img
+                  src={myInfo.profileImg}
+                  id="profile-image-small"
+                  alt="profile"
+                />
                 <ul className="navbar-nav">
                   <li className="nav-item dropdown">
-                    <a
+                    <p
                       className="nav-link dropdown-toggle"
-                      href="#"
                       role="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
                       Hello, <strong>{cookies.userData.name}</strong> !
-                    </a>
+                    </p>
                     <ul className="dropdown-menu dropdown-menu-dark">
                       <li>
-                        {myInfo.type === "local" ? (
+                        {myInfo.type === 'local' ? (
                           <>
                             <Link
                               style={{
-                                display: "flex",
-                                alignItems: "center",
-                                textDecoration: "none",
+                                display: 'flex',
+                                alignItems: 'center',
+                                textDecoration: 'none',
                               }}
                               state={{
                                 email: myInfo.email,
@@ -132,9 +150,9 @@ const Header = () => {
                           <>
                             <Link
                               style={{
-                                display: "flex",
-                                alignItems: "center",
-                                textDecoration: "none",
+                                display: 'flex',
+                                alignItems: 'center',
+                                textDecoration: 'none',
                               }}
                               className="dropdown-item"
                               to="/myprofile"
@@ -151,9 +169,9 @@ const Header = () => {
                       <li>
                         <Link
                           style={{
-                            display: "flex",
-                            alignItems: "center",
-                            textDecoration: "none",
+                            display: 'flex',
+                            alignItems: 'center',
+                            textDecoration: 'none',
                           }}
                           className="dropdown-item"
                           to="/writtenlist"
@@ -168,9 +186,9 @@ const Header = () => {
                       <li>
                         <Link
                           style={{
-                            display: "flex",
-                            alignItems: "center",
-                            textDecoration: "none",
+                            display: 'flex',
+                            alignItems: 'center',
+                            textDecoration: 'none',
                           }}
                           className="dropdown-item"
                           to="/myreport"
@@ -185,8 +203,8 @@ const Header = () => {
                         <p
                           className="dropdown-item pointer"
                           onClick={() => {
-                            removeCookie("userData", { path: "/" });
-                            navigate("/");
+                            removeCookie('userData', { path: '/' });
+                            navigate('/');
                             window.location.reload();
                           }}
                         >
@@ -203,9 +221,9 @@ const Header = () => {
                   <li>
                     <Link
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        textDecoration: "none",
+                        display: 'flex',
+                        alignItems: 'center',
+                        textDecoration: 'none',
                       }}
                       className="white-middle-font"
                       to="/login"
