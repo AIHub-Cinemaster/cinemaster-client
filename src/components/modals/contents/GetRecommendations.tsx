@@ -32,7 +32,6 @@ const GetRecommendations = ({ movieId, setMovieId }: IProps) => {
             key={index}
             movie_id={movie.id}
             movie_poster={movie.poster_path}
-            movieId={movieId}
             setMovieId={setMovieId}
           />
         ))}

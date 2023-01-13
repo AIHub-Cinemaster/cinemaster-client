@@ -1,44 +1,48 @@
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-import $ from "jquery";
-import { getMovieInfoByMovieId } from "../../../../lib/api/tmdb";
-import { sendCreateReview } from "lib/api/review";
+import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import $ from 'jquery';
+import { getMovieInfoByMovieId } from '../../../../lib/api/tmdb';
+import { sendCreateReview } from 'lib/api/review';
 
-const Create = ({
-  setCreateIsOpen,
-  movieId,
-  getReviewDataByMovie,
-}) => {
-  const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
+interface IProps {
+  setCreateIsOpen: (createIsOpen: boolean) => void;
+  movieId: string;
+  getReviewDataByMovie: any;
+}
 
-  const [createReview, setCreateReview] = useState({
+const Create = ({ setCreateIsOpen, movieId, getReviewDataByMovie }: IProps) => {
+  const [cookies, setCookie, removeCookie] = useCookies(['userData']);
+
+  const [createReview, setCreateReview] = useState<any>({
     movieId: movieId,
-    title: "",
-    content: "",
+    title: '',
+    content: '',
     shortId: cookies.userData.shortId,
     star: 0,
-    genreList:[]
+    genreList: [],
   });
 
-  let genresArr = []
+  let temp: any[] = [];
 
   useEffect(() => {
-    getMovieInfoByMovieId(movieId).then(res => {
-      res.data.genres.forEach((genre) => {
-        genresArr.push(genre.name)
+    getMovieInfoByMovieId(movieId)
+      .then((res) => {
+        res.data.genres.forEach((genre: any) => {
+          temp.push(genre.name);
+        });
+        setCreateReview({
+          ...createReview,
+          genreList: temp,
+        });
       })
-      setCreateReview({
-        ...createReview,
-        genreList: genresArr,
+      .catch((error) => {
+        console.log(error);
       });
-    }).catch(error => {
-      console.log(error)     
-    })
-  }, [])
+  }, []);
 
-  const onChangeCreateReview = (event) => {
+  const onChangeCreateReview = (event: any) => {
     // value 값에 따라 별 색칠
-    if (event.target.name === "star") {
+    if (event.target.name === 'star') {
       $(`.star span`).css({ width: `${event.target.value * 10 * 2}%` });
     }
 
@@ -49,10 +53,12 @@ const Create = ({
   };
 
   const onClickCreateReviewButton = () => {
-    sendCreateReview(createReview).then(response => {
+    sendCreateReview(createReview)
+      .then((response) => {
         setCreateIsOpen(false);
         getReviewDataByMovie(movieId);
-      }).catch(error => {
+      })
+      .catch((error) => {
         alert(error.response.data.fail);
       });
   };
@@ -101,7 +107,6 @@ const Create = ({
           onChange={onChangeCreateReview}
           name="content"
           id="content"
-          rows="5"
           placeholder="Content Here"
         ></textarea>
       </div>
@@ -120,12 +125,12 @@ const Create = ({
         />
       </div>
 
-      <div style={{ textAlign: "right" }}>
+      <div style={{ textAlign: 'right' }}>
         <button
           type="button"
           onClick={() => onClickCreateReviewButton()}
           className="button grey-button-small"
-          style={{ marginRight: "5px" }}
+          style={{ marginRight: '5px' }}
         >
           SUBMIT
         </button>
