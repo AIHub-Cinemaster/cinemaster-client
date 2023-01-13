@@ -20,6 +20,15 @@ export const sendSignUpData = async (formData: {}, config: {}) => {
 export const getUserInfo = async (shortId: string) => {
   return await apiClient({
     method: "get",
-    url: `/user/signUp/${shortId}`,
+    url: `/user/${shortId}`,
   })
 };
+
+export const updateUserInfo = async (formData: any, config: any) => {
+  return await apiClient({
+    method: "post",
+    url: '/user/update',
+    data: formData,
+    headers: config
+  })
+}

@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import axios from "axios";
-import Chart from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
+import { getDist } from "lib/api/report";
 
 
 
-const StarHist = ()=>{
+const StarHist = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [myDist, setMyDist] = useState({});
   const [myAver, setMyaver] = useState("");
@@ -15,30 +14,21 @@ const StarHist = ()=>{
   const [myType, setMyType] = useState("");
 
   useEffect(()=>{
-    getStarDist().then(res=>{
+    getDist(cookies.userData.shortId).then(res=>{
       setMyaver(res.data.result.aver)
       setMyFeq(res.data.result.feq)
       setMyDist(res.data.result.cnt)
-      // console.log(res.data.result)
-    }).catch(err=>{
-      console.log(err)
     })
   },[])
 
   let sum=0;
 
   useEffect(()=>{
-    for (let [key, value] of Object.entries(myDist)){
+    for (let [_, value] of Object.entries(myDist)){
       sum += value
     }
     setMyMov(sum)
   },[myDist])
-
-  const getStarDist = async () => {
-    return await axios.get(
-      process.env.REACT_APP_SERVER_URL + "/report/dist/" + cookies.userData.shortId
-    );
-  };
 
   const data = {
     labels: ['0', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5'],

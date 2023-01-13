@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { Bar } from 'react-chartjs-2';
+import { getPrefer } from "lib/api/report";
 
 
 const GenrePrefer = ()=>{
@@ -11,16 +12,15 @@ const GenrePrefer = ()=>{
   const [myAver, setMyAver] = useState([]);
   const [myArr, setMyArr] = useState([]);
 
-
   let arr1 = []
   let arr2 = []
   let arr3 = []
 
-  useEffect(()=>{
-    getGenrePrefer().then(res=>{
-      setMyArr(res.data.result)
+  useEffect(() => {
+    getPrefer(cookies.userData.shortId).then(response => {
+      setMyArr(response.data.result)
 
-      res.data.result.map((item)=>{
+      response.data.result.forEach((item) => {
         arr1.push(item.name);
         arr2.push(item.cnt);
         arr3.push(item.aver);
@@ -29,16 +29,8 @@ const GenrePrefer = ()=>{
       setMyGenres(arr1)
       setMyCnt(arr2)
       setMyAver(arr3)      
-    }).catch(err=>{
-      console.log(err)
     })
-  },[])
-
-  const getGenrePrefer = async () => {
-    return await axios.get(
-      process.env.REACT_APP_SERVER_URL + "/report/prefer/" + cookies.userData.shortId
-    );
-  };
+  }, [])
 
   const data = {
     labels: myGenres,
@@ -53,9 +45,7 @@ const GenrePrefer = ()=>{
         // borderRadius:15
         
       },
-      
     ],
-    
   };
 
   const options = {

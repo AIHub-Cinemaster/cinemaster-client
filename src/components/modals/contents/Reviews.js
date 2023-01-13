@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Create from "./pages/Create";
 import { useCookies } from "react-cookie";
 import ReviewCard from "./pages/ReviewCard";
 import { useNavigate } from "react-router-dom";
+import { getReviewsByMovie } from "lib/api/reviewlist";
 
 const Reviews = ({ movieId }) => {
   const navigate = useNavigate();
@@ -19,30 +19,21 @@ const Reviews = ({ movieId }) => {
 
   useEffect(()=>{
     if(cookies.userData){
-      // 로그인 상태 && 리뷰중에 내 작성글 있으면 작성불가
-      reviewsByMovie.map((review) => {
+      reviewsByMovie.forEach((review) => {
         if(review.shortId === cookies.userData.shortId){
           setCreateAuth(false);
           return
         }
       })
     } else { 
-      //비로그인시 작성불가
       setCreateAuth(false);
     }
   },[reviewsByMovie])
 
-  const getReviewDataByMovie = (mid) => {
-    try {
-      axios
-        .get(process.env.REACT_APP_SERVER_URL + `/reviewlist/${mid}`)
-        .then((res) => {
-          setReviewsByMovie(res.data);
-          // console.log("res.data: ", res.data)
-        });
-    } catch (error) {
-      console.log(error);
-    }
+  const getReviewDataByMovie = (movieId) => {
+    getReviewsByMovie(movieId).then((response) => {
+      setReviewsByMovie(response.data);
+    });
   };
 
   return (
@@ -82,7 +73,7 @@ const Reviews = ({ movieId }) => {
           }
           
           {/* 리뷰리스트불러오기 */}
-          {reviewsByMovie.map((review, index) => (
+          {reviewsByMovie.forEach((review, index) => (
             <ReviewCard
               key={index}
               review={review}

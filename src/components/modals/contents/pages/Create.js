@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import $ from "jquery";
-import axios from "axios";
 import { getMovieInfoByMovieId } from "../../../../lib/api/tmdb";
-
-const API_KEY = process.env.REACT_APP_API_KEY;
-
+import { sendCreateReview } from "lib/api/review";
 
 const Create = ({
-  createIsOpen,
   setCreateIsOpen,
   movieId,
   getReviewDataByMovie,
@@ -24,27 +20,21 @@ const Create = ({
     genreList:[]
   });
 
-  // useEffect(()=>{
-  //   console.log(createReview);
-  // }, [createReview]);
   let genresArr = []
 
-  useEffect(()=>{
+  useEffect(() => {
     getMovieInfoByMovieId(movieId).then(res => {
-      res.data.genres.map((genre)=>{
+      res.data.genres.forEach((genre) => {
         genresArr.push(genre.name)
       })
       setCreateReview({
         ...createReview,
         genreList: genresArr,
       });
-    }).catch(err=>{
-      console.log(err)     
+    }).catch(error => {
+      console.log(error)     
     })
   }, [])
-  
-
-  
 
   const onChangeCreateReview = (event) => {
     // value 값에 따라 별 색칠
@@ -59,23 +49,12 @@ const Create = ({
   };
 
   const onClickCreateReviewButton = () => {
-    sendCreateReview()
-      .then((res) => {
-        // alert(res.data.result)
+    sendCreateReview(createReview).then(response => {
         setCreateIsOpen(false);
         getReviewDataByMovie(movieId);
-      })
-      .catch((error) => {
-        // console.log("작성실패", error);
+      }).catch(error => {
         alert(error.response.data.fail);
       });
-  };
-
-  const sendCreateReview = async () => {
-    return await axios.post(
-      process.env.REACT_APP_SERVER_URL + "/review/add",
-      createReview
-    );
   };
 
   return (

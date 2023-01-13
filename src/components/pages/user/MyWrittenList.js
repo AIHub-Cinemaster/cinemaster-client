@@ -1,10 +1,10 @@
 import { useCookies } from "react-cookie";
-import axios from "axios";
 import $ from "jquery";
 import React, { useState, useEffect } from "react";
 import ReviewCard from "../../modals/contents/pages/ReviewCard";
 import MovieModal from "../../modals/MovieModal";
 import emptyBox from "./../../../assets/images/empty.png"
+import { getReviewsByUser } from "lib/api/review";
 
 const ReviewBox = ({review, getReviewDataByUser}) =>{
   const [isOpen, setOpen] = useState(false);
@@ -39,16 +39,10 @@ const MyWrittenList = () => {
     getReviewDataByUser()
   },[])
 
-  
-
-  const getReviewDataByUser = ()=>{
-    try{
-      axios.get(`${process.env.REACT_APP_SERVER_URL}/review/user/${cookies.userData.shortId}`).then(res=>{
-        setReviewsByUser(res.data);
-      })
-    } catch(error) {
-      console.log(error)
-    }
+  const getReviewDataByUser = () => {
+    getReviewsByUser(cookies.userData.shortId).then(response=>{
+      setReviewsByUser(response.data);
+    })
   }
 
   return (
