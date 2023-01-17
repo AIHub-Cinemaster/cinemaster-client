@@ -75,7 +75,7 @@
 
 ## 🛠 Tech Stack
 
-`TypeScript`, `React`, `Redux`, `Jquery`, `ChartJs` / `Node.js`, `Express`, `MongoDB`, `FastAPI`, `heroku`
+`TypeScript`, `React`, `Redux`, `Jquery`, `ChartJs`
 
 ## ⚙️ System Architecture
 
