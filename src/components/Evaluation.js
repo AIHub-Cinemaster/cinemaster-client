@@ -27,10 +27,6 @@ const Evaluation = () => {
     getRandomIds();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(movieList);
-  // }, [movieList]);
-
   const onClickSubmitBtn = () => {
     console.log("onClickSubmitBtn", movieList);
 

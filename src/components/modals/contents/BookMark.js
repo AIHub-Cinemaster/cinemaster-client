@@ -8,14 +8,8 @@ const BookMark = ({movieId})=>{
   const navigate = useNavigate();
 
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
-  const [myCart, setMyCart] = useState([]);
   const [inCart, setInCart] = useState("");
 
-  useEffect(()=>{
-    if (cookies.userData) {
-      cartInit(); //장바구니 서버에서 가져오기
-    }
-  },[])
   useEffect(()=>{
     if (cookies.userData) {
       cartInit(); //장바구니 서버에서 가져오기
