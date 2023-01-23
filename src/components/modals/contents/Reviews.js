@@ -15,10 +15,6 @@ const Reviews = ({ movieId }) => {
 
   useEffect(() => {
     getReviewDataByMovie(movieId);
-  }, []);
-
-  useEffect(() => {
-    getReviewDataByMovie(movieId);
   }, [movieId]);
 
   useEffect(()=>{
