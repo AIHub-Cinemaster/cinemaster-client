@@ -83,7 +83,7 @@
 
 ## 🛠 Tech Stack
 
-`TypeScript`, `React`, `Redux`, `Jquery`, `ChartJs`
+`React`, `Redux`, `Jquery`, `ChartJs`
 
 ## ⚙️ System Architecture
 
