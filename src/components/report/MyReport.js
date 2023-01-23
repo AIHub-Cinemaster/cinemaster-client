@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import axios from "axios";
+
 import emptyBox from './../../assets/images/empty.png'
 import StarHist from "./StarHist";
 import GenrePrefer from "./GenrePrefer";
 import ReviewWordCloud from "./ReviewWordCloud";
-import { getReviewsByUser } from "lib/api/review";
 
 const MyReport = ()=>{
   const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
+
   const [reviewsByUser, setReviewsByUser] = useState([]);
   const [myContent, setMyContent] = useState("");
+
 
   useEffect(()=>{
     getReviewDataByUser()
@@ -17,14 +20,19 @@ const MyReport = ()=>{
 
   let contentTemp = ""
 
-  const getReviewDataByUser = () => {
-    getReviewsByUser(cookies.userData.shortId).then(response => {
-      response.data.forEach(item => {
-        contentTemp += item.content
+  const getReviewDataByUser = ()=>{
+    try{
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/review/user/${cookies.userData.shortId}`).then(res=>{
+        // console.log(res.data)
+        res.data.map((item)=>{
+          contentTemp += item.content
+        })
+        setReviewsByUser(res.data);
+        setMyContent(contentTemp);
       })
-      setReviewsByUser(response.data);
-      setMyContent(contentTemp);
-    })
+    } catch(error) {
+      console.log(error)
+    }
   }
 
   return (

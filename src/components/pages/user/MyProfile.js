@@ -1,8 +1,8 @@
 import { useCookies } from "react-cookie";
+import axios from "axios";
 import $ from "jquery";
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserInfo, updateUserInfo } from "lib/api/user";
 
 const MyProfile = () => {
   const navigate = useNavigate();
@@ -18,16 +18,24 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (cookies.userData) {
-      getUserInfo(cookies.userData.shortId).then((response) => {
-        setModifyUserData({
-          ...modifyUserData,
-          name: response.data.name,
-          type: response.data.type,
+      getUserInfo()
+        .then((res) => {
+          setModifyUserData({
+            ...modifyUserData,
+            name: res.data.name,
+            type: res.data.type,
+          });
+          setProfileImage(res.data.profileImg);
+        })
+        .catch((err) => {
+          console.log("유저 데이터 로드 오류", err);
         });
-        setProfileImage(response.data.profileImg);
-      })
     }
   }, []);
+
+  const getUserInfo = async () => {
+    return await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${cookies.userData.shortId}`);
+  };
 
   //----------------------------- 프로필 업로드 -----------------------------//
   const fileInput = useRef(null);
@@ -36,7 +44,13 @@ const MyProfile = () => {
     if (e.target.files[0]) {
       setProfileImage(e.target.files[0]);
       console.log(e.target.files[0]);
-    } 
+    } else {
+      //업로드 취소할 시
+      // setProfileImage(
+      //   "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+      // );
+      return;
+    }
     //화면에 프로필 사진 표시
     const reader = new FileReader();
     reader.onload = () => {
@@ -91,14 +105,23 @@ const MyProfile = () => {
     formData.append("password", modifyUserData.password);
     formData.append("type", modifyUserData.type);
 
-    updateUserInfo(formData, config).then((response) => {
-      navigate('/')
-      window.location.reload(); 
-    }).catch((error) => {
-      setErrMsg(error.response.data.error);
-    });
+    sendModifyUserData(formData, config)
+      .then((res) => {
+        // alert(res.data.result);
+        navigate('/')
+        window.location.reload(); // window는 실행하는 최고 객체 즉 브라우저. 브라우저를 새로 고침
+      })
+      .catch((e) => {
+        setErrMsg(e.response.data.error);
+      });
   };
 
+  const sendModifyUserData = async (formData, config) => {
+    // console.log("signUpdaata");
+    return await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/update`, formData, config);
+  };
+
+  // 회원가입 data를 입력받는 함수
   const onChangeUserInfo = (event) => {
     setModifyUserData({
       ...modifyUserData,
@@ -110,8 +133,9 @@ const MyProfile = () => {
     <div className="login-page">
       <div className="form">
         <img
-          alt="icture"
+          alt="User Picture"
           src={profileImage}
+          // src={userInfo.profileImg}
           id="profile-image"
           onClick={() => {
             fileInput.current.click();

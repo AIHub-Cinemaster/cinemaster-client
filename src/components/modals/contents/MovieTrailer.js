@@ -1,30 +1,31 @@
-import { useEffect, useState } from 'react';
-import { getTrailerByMovieId } from '../../../lib/api/tmdb';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { getTrailerByMovieId } from "../../../lib/api/tmdb";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
-interface IProps {
-  movieId: string;
-}
 
-const MovieTrailer = ({ movieId }: IProps) => {
-  const [trailerKey, setTrailerKey] = useState('');
-
+const MovieTrailer = ({movieId})=>{
+  const [trailerKey, setTrailerKey] = useState("");
+  
   useEffect(() => {
-    getTrailerByMovieId(movieId).then((response) => {
-      response.data.results.forEach((video: any) => {
-        if (video.type === 'Trailer') {
+    getTrailerByMovieId(movieId).then((res) => {
+      res.data.results.map((video) => {
+        if (video.type == "Trailer") {
           setTrailerKey(video.key);
         }
       });
+    }).catch((err) => {
+        console.log(err);
     });
   }, [movieId]);
 
   let youtubeUrl = `https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&controls=0&playlist=${trailerKey}`;
-
+  
   return (
     <>
       <div className="trailer-box">
         <iframe
-          style={{ width: '850px', height: '480px', border: 'none' }}
+          style={{ width: "850px", height: "480px", border: "none"}}
           src={youtubeUrl}
           title="YouTube video player"
           frameBorder="0"
@@ -33,7 +34,7 @@ const MovieTrailer = ({ movieId }: IProps) => {
         />
       </div>
     </>
-  );
-};
+  )
+}
 
 export default MovieTrailer;

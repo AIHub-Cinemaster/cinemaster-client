@@ -1,19 +1,21 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import $ from "jquery";
 import MovieModal from "../../modals/MovieModal";
 import emptyBox from "./../../../assets/images/empty.png";
 import { getMovieInfoByMovieId } from "../../../lib/api/tmdb";
-import { getCart } from "lib/api/cart";
 
 const MyMovieCard = ({ movieId }) => {
   const [movieInfo, setMovieInfo] = useState([]);
   const [isOpen, setOpen] = useState(false);
 
   useEffect(() => {
-    getMovieInfoByMovieId(movieId).then(response => {
-      setMovieInfo(response.data);
-    })
+    getMovieInfoByMovieId(movieId).then((res) => {
+      setMovieInfo(res.data);
+    }).catch((err) => {
+      console.log(err);
+    });
   }, []);
 
   return (
@@ -40,15 +42,27 @@ const MyPick = () => {
   const [myMovieIds, setMyMovieIds] = useState([]);
 
   useEffect(() => {
-    getCart(cookies.userData.shortId).then(response => {
-      if (response.data.empty) {
-        setMyMovieIds([]);
-        return;
-      }
-      //찜영화의 아이디만 담긴 배열
-      setMyMovieIds(response.data.result);
-    })
+    getCartList();
   }, []);
+
+  const getCartList = () => {
+    axios
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/cart/list/${cookies.userData.shortId}`
+      )
+      .then((res) => {
+        if (res.data.empty) {
+          setMyMovieIds([]);
+          return;
+        }
+        //찜영화의 아이디만 담긴 배열
+        setMyMovieIds(res.data.result);
+        // console.log("degv", res.data.empty)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -63,7 +77,6 @@ const MyPick = () => {
             style={{ transform: "rotate(-5deg)" }}
             width="300px"
             className="m-5"
-            alt="img"
           />
         </div>
       ) : (

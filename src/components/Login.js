@@ -230,6 +230,9 @@ const Login = () => {
                 <a href={NAVER_AUTH_URI} className="social">
                   <img src={naverLogin} width="50px" />
                 </a>
+                <a href="#" className="social">
+                  <img src={googleLogin} width="50px" />
+                </a>
                 <a href={KAKAO_AUTH_URI} className="social">
                   <img src={kakaoLogin} width="50px" />
                 </a>

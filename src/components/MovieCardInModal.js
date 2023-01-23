@@ -1,14 +1,9 @@
-import React from 'react';
+import React from "react";
 
-interface IProps {
-  movie_id: string;
-  movie_poster: string;
-  setMovieId: (movieId: string) => void;
-}
-
-const MovieCardInModal = ({ movie_id, movie_poster, setMovieId }: IProps) => {
+const MovieCardInModal = ({ movie_id, movie_poster, movieId, setMovieId }) => {
   return (
     <>
+      {/* <div style={{display:"inline-block"}}> */}
       <img
         onClick={() => {
           setMovieId(movie_id);
@@ -16,6 +11,7 @@ const MovieCardInModal = ({ movie_id, movie_poster, setMovieId }: IProps) => {
         src={`https://www.themoviedb.org/t/p/w154${movie_poster}`}
         alt={movie_id}
       />
+      {/* </div>  */}
     </>
   );
 };

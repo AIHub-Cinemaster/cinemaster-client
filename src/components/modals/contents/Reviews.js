@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
-import Create from './pages/Create';
-import { useCookies } from 'react-cookie';
-import ReviewCard from './pages/ReviewCard';
-import { useNavigate } from 'react-router-dom';
-import { getReviewsByMovie } from 'lib/api/reviewlist';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Create from "./pages/Create";
+import { useCookies } from "react-cookie";
+import ReviewCard from "./pages/ReviewCard";
+import { useNavigate } from "react-router-dom";
 
-interface IProps {
-  movieId: string;
-}
-
-const Reviews = ({ movieId }: IProps) => {
+const Reviews = ({ movieId }) => {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(['userData']);
+  const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [reviewsByMovie, setReviewsByMovie] = useState([]);
   const [createIsOpen, setCreateIsOpen] = useState(false);
   const [accessIsReview, setAccessIsReview] = useState(true);
@@ -21,29 +17,39 @@ const Reviews = ({ movieId }: IProps) => {
     getReviewDataByMovie(movieId);
   }, [movieId]);
 
-  useEffect(() => {
-    if (cookies.userData) {
-      reviewsByMovie.forEach((review: any) => {
-        if (review.shortId === cookies.userData.shortId) {
+  useEffect(()=>{
+    if(cookies.userData){
+      // 로그인 상태 && 리뷰중에 내 작성글 있으면 작성불가
+      reviewsByMovie.map((review)=>{
+        if(review.shortId === cookies.userData.shortId){
           setCreateAuth(false);
-          return;
+          return
         }
-      });
-    } else {
+      })
+    } else { 
+      //비로그인시 작성불가
       setCreateAuth(false);
     }
-  }, [reviewsByMovie]);
+  },[reviewsByMovie])
 
-  const getReviewDataByMovie = (movieId: string) => {
-    getReviewsByMovie(movieId).then((response) => {
-      setReviewsByMovie(response.data);
-    });
+  const getReviewDataByMovie = (mid) => {
+    try {
+      axios
+        .get(process.env.REACT_APP_SERVER_URL + `/reviewlist/${mid}`)
+        .then((res) => {
+          setReviewsByMovie(res.data);
+          // console.log("res.data: ", res.data)
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
       {createIsOpen ? (
         <Create
+          createIsOpen={createIsOpen}
           setCreateIsOpen={setCreateIsOpen}
           movieId={movieId}
           getReviewDataByMovie={getReviewDataByMovie}
@@ -58,7 +64,8 @@ const Reviews = ({ movieId }: IProps) => {
                   className="review-create-btn"
                   onClick={() => {
                     if (!cookies.userData) {
-                      navigate('/login');
+                      // alert("로그인을 해주세요");
+                      navigate("/login");
                     } else {
                       setCreateIsOpen(true);
                     }
@@ -71,12 +78,11 @@ const Reviews = ({ movieId }: IProps) => {
                   </h2>
                 </div>
               </>
-            ) : (
-              <></>
-            )
+            ) : (<></>)
           }
-
-          {reviewsByMovie.forEach((review, index) => (
+          
+          {/* 리뷰리스트불러오기 */}
+          {reviewsByMovie.map((review, index) => (
             <ReviewCard
               key={index}
               review={review}

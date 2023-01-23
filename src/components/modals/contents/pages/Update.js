@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import $ from "jquery";
 import axios from "axios";
-import { getReview } from "lib/api/review";
 
 const Update = ({
+  updateIsOpen,
   setUpdateIsOpen,
   reviewId,
   getReviewData,
@@ -14,10 +14,25 @@ const Update = ({
   const [updateData, setUpdateData] = useState({});
 
   useEffect(() => {
-    getReview(cookies.userData.shortId, reviewId).then((response) => {
-      setUpdateData(response.data);
-    });
+    // console.log(shortId)
+    findGetReviewData();
   }, []);
+
+  const findGetReviewData = () => {
+    axios
+      .get(
+        process.env.REACT_APP_SERVER_URL +
+          `/review/find/${cookies.userData.shortId}/${reviewId}`
+      )
+      .then((res) => {
+        // console.log(res.data)
+        setUpdateData(res.data);
+      });
+  };
+
+  // useEffect(()=>{
+  //   console.log(updateData.star);
+  // }, [updateData]);
 
   const onChangeUpdateData = (event) => {
     // value 값에 따라 별 색칠
@@ -32,10 +47,23 @@ const Update = ({
   };
 
   const onClickUpdateButton = () => {
-    updateData(updateData).then((response) => {
+    sendUpdateData()
+      .then((res) => {
+        // console.log(res.data.result)
         getReviewData(movieId);
         setUpdateIsOpen(false);
       })
+      .catch((error) => {
+        console.log("작성실패", error);
+        // alert(error.response.data.fail);
+      });
+  };
+
+  const sendUpdateData = async () => {
+    return await axios.post(
+      process.env.REACT_APP_SERVER_URL + "/review/update",
+      updateData
+    );
   };
 
   return (

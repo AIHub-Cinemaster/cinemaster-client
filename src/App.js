@@ -1,22 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Evaluation from './Evaluation';
-import Footer from './Footer';
-import Header from './Header';
-import Home from './Home';
-import Identification from './Identification';
-import Login from './Login';
-import NotFound from './NotFound';
-import KakaoCallBack from './pages/user/KakaoCallback';
-import MyPick from './pages/user/MyPick';
-import MyProfile from './pages/user/MyProfile';
-import MyWrittenList from './pages/user/MyWrittenList';
-import NaverCallBack from './pages/user/NaverCallback';
-import MyReport from './report/MyReport';
+import { Route, Routes } from "react-router-dom";
+import "./assets/css/App.css";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import NotFound from "./components/NotFound";
+import KakaoCallBack from "./components/pages/user/KakaoCallback";
+import NaverCallBack from "./components/pages/user/NaverCallback";
+import Footer from "./components/Footer";
+import Login from "./components/Login";
 
-const Router = () => {
+import MyPick from "./components/pages/user/MyPick";
+import MyWrittenList from "./components/pages/user/MyWrittenList";
+import MyProfile from "./components/pages/user/MyProfile";
+import Identification from "./components/Identification";
+import Evaluation from "./components/Evaluation";
+import MyReport from "./components/report/MyReport";
+
+function App() {
   return (
-    <BrowserRouter>
+    <div className="root-wrap">
       <Header />
+
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -27,6 +30,7 @@ const Router = () => {
           <Route path="/myprofile" element={<MyProfile />} />
           <Route path="/identification" element={<Identification />} />
           <Route path="/myreport" element={<MyReport />} />
+
           <Route path="oauth">
             <Route path="kakao/callback" element={<KakaoCallBack />} />
             <Route path="naver/callback" element={<NaverCallBack />} />
@@ -35,8 +39,8 @@ const Router = () => {
         </Routes>
       </div>
       <Footer />
-    </BrowserRouter>
+    </div>
   );
-};
+}
 
-export default Router;
+export default App;

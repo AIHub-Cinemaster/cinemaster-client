@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { movieAction } from '../redux/actions/MovieAction';
-import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { useCookies } from 'react-cookie';
-import Banner from './Banner';
-import MovieSlide from './MovieSlide';
-import ClipLoader from 'react-spinners/ClipLoader';
-import './../assets/css/App.css';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { getMovieInfoByMovieId } from '../lib/api/tmdb';
+import React, { useEffect, useState } from "react";
+import { movieAction } from "../redux/actions/MovieAction";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+import { useCookies } from "react-cookie";
+import Banner from "../components/Banner";
+import MovieSlide from "../components/MovieSlide";
+import ClipLoader from "react-spinners/ClipLoader";
+import "./../assets/css/App.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getMovieInfoByMovieId } from "../lib/api/tmdb";
 const Home = () => {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(['userData']);
+  const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
   const [recommendList, setRecommendList] = useState([]);
   const dispatch = useDispatch();
   const { popularMovies, topRatedMovies, upComingMovies, loading } =
     useSelector((state) => state.movie);
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
     dispatch(movieAction.getMovies());
+
     /*
      * 추천 영화 목록 서버에서 가져오기!
      */
@@ -87,9 +89,9 @@ const Home = () => {
           className="review-create-btn mb-5"
           onClick={() => {
             if (cookies.userData) {
-              navigate('./eval');
+              navigate("./eval");
             } else {
-              navigate('/login');
+              navigate("/login");
               // alert("로그인이 필요합니다.")
             }
           }}

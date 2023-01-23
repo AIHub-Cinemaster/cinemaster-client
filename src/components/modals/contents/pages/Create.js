@@ -1,48 +1,54 @@
-import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import $ from 'jquery';
-import { getMovieInfoByMovieId } from '../../../../lib/api/tmdb';
-import { sendCreateReview } from 'lib/api/review';
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import $ from "jquery";
+import axios from "axios";
+import { getMovieInfoByMovieId } from "../../../../lib/api/tmdb";
 
-interface IProps {
-  setCreateIsOpen: (createIsOpen: boolean) => void;
-  movieId: string;
-  getReviewDataByMovie: any;
-}
+const API_KEY = process.env.REACT_APP_API_KEY;
 
-const Create = ({ setCreateIsOpen, movieId, getReviewDataByMovie }: IProps) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['userData']);
 
-  const [createReview, setCreateReview] = useState<any>({
+const Create = ({
+  createIsOpen,
+  setCreateIsOpen,
+  movieId,
+  getReviewDataByMovie,
+}) => {
+  const [cookies, setCookie, removeCookie] = useCookies(["userData"]);
+
+  const [createReview, setCreateReview] = useState({
     movieId: movieId,
-    title: '',
-    content: '',
+    title: "",
+    content: "",
     shortId: cookies.userData.shortId,
     star: 0,
-    genreList: [],
+    genreList:[]
   });
 
-  let temp: any[] = [];
+  // useEffect(()=>{
+  //   console.log(createReview);
+  // }, [createReview]);
+  let genresArr = []
 
-  useEffect(() => {
-    getMovieInfoByMovieId(movieId)
-      .then((res) => {
-        res.data.genres.forEach((genre: any) => {
-          temp.push(genre.name);
-        });
-        setCreateReview({
-          ...createReview,
-          genreList: temp,
-        });
+  useEffect(()=>{
+    getMovieInfoByMovieId(movieId).then(res => {
+      res.data.genres.map((genre)=>{
+        genresArr.push(genre.name)
       })
-      .catch((error) => {
-        console.log(error);
+      setCreateReview({
+        ...createReview,
+        genreList: genresArr,
       });
-  }, []);
+    }).catch(err=>{
+      console.log(err)     
+    })
+  }, [])
+  
 
-  const onChangeCreateReview = (event: any) => {
+  
+
+  const onChangeCreateReview = (event) => {
     // value 값에 따라 별 색칠
-    if (event.target.name === 'star') {
+    if (event.target.name === "star") {
       $(`.star span`).css({ width: `${event.target.value * 10 * 2}%` });
     }
 
@@ -53,14 +59,23 @@ const Create = ({ setCreateIsOpen, movieId, getReviewDataByMovie }: IProps) => {
   };
 
   const onClickCreateReviewButton = () => {
-    sendCreateReview(createReview)
-      .then((response) => {
+    sendCreateReview()
+      .then((res) => {
+        // alert(res.data.result)
         setCreateIsOpen(false);
         getReviewDataByMovie(movieId);
       })
       .catch((error) => {
+        // console.log("작성실패", error);
         alert(error.response.data.fail);
       });
+  };
+
+  const sendCreateReview = async () => {
+    return await axios.post(
+      process.env.REACT_APP_SERVER_URL + "/review/add",
+      createReview
+    );
   };
 
   return (
@@ -107,6 +122,7 @@ const Create = ({ setCreateIsOpen, movieId, getReviewDataByMovie }: IProps) => {
           onChange={onChangeCreateReview}
           name="content"
           id="content"
+          rows="5"
           placeholder="Content Here"
         ></textarea>
       </div>
@@ -125,12 +141,12 @@ const Create = ({ setCreateIsOpen, movieId, getReviewDataByMovie }: IProps) => {
         />
       </div>
 
-      <div style={{ textAlign: 'right' }}>
+      <div style={{ textAlign: "right" }}>
         <button
           type="button"
           onClick={() => onClickCreateReviewButton()}
           className="button grey-button-small"
-          style={{ marginRight: '5px' }}
+          style={{ marginRight: "5px" }}
         >
           SUBMIT
         </button>
